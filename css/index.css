@@ -1,0 +1,38 @@
+body {
+    padding-top: 10vw;
+    padding-bottom: 100px;
+    background-color: aliceblue
+}
+
+
+.pad {
+    height: 150px;
+    background-color: white;
+    text-align: center;
+}
+
+.pad .image-container {
+    height: 50%;
+    background-color: pink;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s linear;
+}
+
+.pad .image-container:hover {
+    background-color: plum;
+}
+
+.pad .image-container-full {
+    height: 100%;
+}
+
+.section-title {
+    margin-top: 1em;
+}
+
+li > a.selected {
+    color: indianred;
+}

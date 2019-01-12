@@ -1,0 +1,60 @@
+{
+    "items": [
+        { 
+            "id": 1, 
+            "title": "Crocodiles", 
+            "description": "One day in life of a crocodile", 
+            "date": "2018-12-12",
+            "discipline": "Extra-class activities",          
+            "methods": ["in group", "brainstorms"],
+            "themes": ["ads"],
+            "ageRange": [] 
+        },
+        { 
+            "id": 2, 
+            "title": "Birds", 
+            "description": "One day in life of a birdy", 
+            "date": "2018-05-12",
+            "discipline": "Nature Science",          
+            "methods": ["in group", "brainstorms"],
+            "themes": ["ads"]
+        },
+        { 
+            "id": 3, 
+            "title": "Monkeys", 
+            "description": "One day in life of a crocodile", 
+            "date": "2017-12-02",
+            "discipline": "Extra-class activities",          
+            "methods": ["in group", "brainstorms"],
+            "themes": ["facts and opitions"]
+        },
+        { 
+            "id": 4, 
+            "title": "Dinosaurs", 
+            "description": "One day in life of a tiranosaur", 
+            "date": "2018-12-12",
+            "discipline": "Foreign Languages",          
+            "methods": ["in group", "brainstorm"],
+            "themes": ["ads", "media consumering"]
+        }
+    ],
+    "all-disciplines": [
+        "Physics",
+        "Foreign Languages",
+        "Math",
+        "Nature Science",
+        "Extra-class activities"
+    ],
+    "all-age-groups": [
+        "chilren",
+        "youth",
+        "adults"
+    ],
+    "all-themes": [
+        "information search",
+        "fact checking",
+        "media consumering",
+        "ads",
+        "facts and opinions"
+    ]
+}
