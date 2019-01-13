@@ -8,7 +8,7 @@
             "discipline": "Extra-class activities",          
             "methods": ["in group", "brainstorms"],
             "themes": ["ads"],
-            "ageRange": [] 
+            "ageRange": "elementary" 
         },
         { 
             "id": 2, 
@@ -17,7 +17,8 @@
             "date": "2018-05-12",
             "discipline": "Nature Science",          
             "methods": ["in group", "brainstorms"],
-            "themes": ["ads"]
+            "themes": ["ads"],
+            "ageRange": "primary"
         },
         { 
             "id": 3, 
@@ -26,7 +27,8 @@
             "date": "2017-12-02",
             "discipline": "Extra-class activities",          
             "methods": ["in group", "brainstorms"],
-            "themes": ["facts and opitions"]
+            "themes": ["facts and opitions"],
+            "ageRange": "elementary"
         },
         { 
             "id": 4, 
@@ -35,7 +37,48 @@
             "date": "2018-12-12",
             "discipline": "Foreign Languages",          
             "methods": ["in group", "brainstorm"],
-            "themes": ["ads", "media consumering"]
+            "themes": ["ads", "media consumering"],
+            "ageRange": "adults"
+        },
+        { 
+            "id": 5, 
+            "title": "Fishes", 
+            "description": "One day in life of a baracuda", 
+            "date": "2018-12-12",
+            "discipline": "Foreign Languages",          
+            "methods": ["in group", "brainstorm"],
+            "themes": ["ads", "media consumering"],
+            "ageRange": "adults"
+        },
+        { 
+            "id": 6, 
+            "title": "Fishes", 
+            "description": "One day in life of a baracuda", 
+            "date": "2018-10-01",
+            "discipline": "Foreign Languages",          
+            "methods": ["in group", "brainstorm"],
+            "themes": ["ads", "media consumering"],
+            "ageRange": "adults"
+        },
+        { 
+            "id": 7, 
+            "title": "Fishes", 
+            "description": "One day in life of a yaz", 
+            "date": "2018-09-12",
+            "discipline": "Foreign Languages",          
+            "methods": ["in group", "brainstorm"],
+            "themes": ["ads", "media consumering"],
+            "ageRange": "adults"
+        },
+        { 
+            "id": 8, 
+            "title": "Fishes", 
+            "description": "One day in life of a cambala", 
+            "date": "2018-08-12",
+            "discipline": "Foreign Languages",          
+            "methods": ["in group", "brainstorm"],
+            "themes": ["ads", "media consumering"],
+            "ageRange": "elementary"
         }
     ],
     "all-disciplines": [
@@ -46,8 +89,8 @@
         "Extra-class activities"
     ],
     "all-age-groups": [
-        "chilren",
-        "youth",
+        "elementary",
+        "primary",
         "adults"
     ],
     "all-themes": [

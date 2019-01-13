@@ -4,6 +4,9 @@ body {
     background-color: aliceblue
 }
 
+.row {
+    margin-bottom: 10px;
+}
 
 .pad {
     height: 150px;

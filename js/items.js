@@ -76,21 +76,24 @@ class ItemsModule {
         $title.classList.add('section-title');
         $title.innerText = title;
 
-        let $row = document.createElement('div');
-        $row.classList.add('row');
-
-        items.map((item) => {
-            let $pad = document.createElement('custom-pad');
-            $pad.dataset.title = item.title;
-            $pad.dataset.description = item.description;
-            $pad.classList.add('three');
-            $pad.classList.add('columns');
-
-            $row.appendChild($pad);
-        });
-
         $container.appendChild($title);
-        $container.appendChild($row);
+
+        _.chunk(items, 4).map(chnk => {
+            let $row = document.createElement('div');
+            $row.classList.add('row');
+
+            chnk.map((item) => {
+                let $pad = document.createElement('custom-pad');
+                $pad.dataset.title = item.title;
+                $pad.dataset.description = item.description;
+                $pad.classList.add('three');
+                $pad.classList.add('columns');
+    
+                $row.appendChild($pad);                
+            });
+            
+            $container.appendChild($row);
+        })
     }
 
     get showFilter() {
@@ -113,7 +116,7 @@ class ItemsModule {
         this.bindFilter(this.$filterDisciplines, data['all-disciplines']); 
         this.bindFilter(this.$filterAgeGroups, data['all-age-groups']); 
         this.bindFilter(this.$filterThemes, data['all-themes']); 
-        this.bindFilter(this.$filterGroupBy, ['newest', 'oldest', 'popular', 'by discipline', 'by theme', 'by method']);
+        this.bindFilter(this.$filterGroupBy, ['newest', 'oldest', 'by discipline', 'by theme', 'by age']);
 
         this.bindItemsSection(this.$searchResults, data['items'], 'Physics');
         this.bindItemsSection(this.$searchResults, data['items'], 'Physics 2');
@@ -122,8 +125,33 @@ class ItemsModule {
 
     onFilterChange(name, value) {
         let searchResults = null;
+        
         if (name === 'groupBy' && value == 'by discipline') {
             searchResults = _.groupBy(this._items, item => item.discipline);
+        }
+
+        if (name === 'groupBy' && value == 'by age') {
+            searchResults = _.groupBy(this._items, item => item.ageRange)
+        }
+
+        if (name == 'groupBy' && value == 'by theme') {
+            
+            let expandedByTheme = this._items
+                .reduce((prev, next) => [...prev, ...next.themes.map(t => { return { ...next, themes: t}})], [])
+
+            searchResults = _.groupBy(expandedByTheme, item => item.themes);
+        }
+
+        if (name == 'groupBy' && value == 'newest') {
+            this._items.sort((item1, item2) => item1.date.localeCompare(item2.date));
+
+            searchResults = _.groupBy(this._items, item => 'By Date');
+        }
+        
+        if (name == 'groupBy' && value == 'oldest') {
+            this._items.sort((item1, item2) => item2.date.localeCompare(item1.date));
+
+            searchResults = _.groupBy(this._items, item => 'By Date');
         }
 
         this.$searchResults.innerHTML = '';
@@ -131,6 +159,8 @@ class ItemsModule {
         Object.keys(searchResults).map(groupName => 
             this.bindItemsSection(this.$searchResults, searchResults[groupName], groupName))
     }
+
+    
 }
 
 const itemsController = new ItemsModule();
