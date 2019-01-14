@@ -165,7 +165,7 @@ class ItemsModule {
 
 const itemsController = new ItemsModule();
 
-fetch('/data/fixtures.json')
+fetch('data/fixtures.json')
     .then((response) => response.json())
     .then((json) => itemsController.onLoad(json));
 
