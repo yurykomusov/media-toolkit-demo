@@ -1,48 +1,12 @@
 import * as _ from './utils.js';
-
-class SingleFilterModule {
-    constructor(element) {
-        let self = this;
-        this.$element = element;
-        this._selectedValue = null;
-        this.$selected = null;
-        this._onChange = null;
-
-        this.$element.addEventListener('click', function (event) {
-            if (event.target.tagName !== 'A') return;
-
-            let from = null;
-            let to = null;
-            
-            if (self.$selected && self.$selected !== null) {
-                self.$selected.classList.remove('selected');
-                from = self.$selected.innerText;
-            }
-                
-
-            event.target.classList.add('selected');
-            self.$selected = event.target;
-            
-            to = self.$selected.innerText;
-
-            if (self._onChange !== null) 
-                self._onChange(from, to);
-
-        });
-    }
-    set onChange(value) {
-        this._onChange = value;
-    }
-
-    get selectedValue() {
-        return this.$selected.innerText;
-    }
-}
+import ItemsDataProvider from './ItemsDataProvider.js';
+import { SingleFilterModule } from './SingleFilterModule.js';
 
 class ItemsModule {
     constructor() {
         this._showFilter = false;
         this._data = [];
+        this._itemsDataProvider = null;        
 
         this.$filterBox = document.querySelector('#filter-box');
         this.$trigger = document.querySelector('#filter-toggle');
@@ -64,11 +28,25 @@ class ItemsModule {
         themeFilter.onChange = (from, to) => this.onFilterChange('theme', to);
         ageGroupFilter.onChange = (from, to) => this.onFilterChange('ageGroup', to);
         groupByFilter.onChange = (from, to) => this.onFilterChange('groupBy', to);
+
+        this._selectedFilters = {}; // { filterName, filterValue}
+        this._groupBy = null;
     }
 
     bindFilter($container, items) {
         $container.innerHTML = items.map((item) => `<li><a>${item}<a></li>`)
             .reduce((item1, item2) => item1.concat(item2));
+    }
+
+
+    bindItem($container, title, description) {
+            let $pad = document.createElement('custom-pad');
+            $pad.dataset.title = title;
+            $pad.dataset.description = description;
+            $pad.classList.add('three');
+            $pad.classList.add('columns');
+
+            $container.appendChild($pad);
     }
 
     bindItemsSection($container, items, title) {
@@ -78,22 +56,21 @@ class ItemsModule {
 
         $container.appendChild($title);
 
-        _.chunk(items, 4).map(chnk => {
+        _.chunk(items, 4).forEach(chunk => {
             let $row = document.createElement('div');
             $row.classList.add('row');
 
-            chnk.map((item) => {
-                let $pad = document.createElement('custom-pad');
-                $pad.dataset.title = item.title;
-                $pad.dataset.description = item.description;
-                $pad.classList.add('three');
-                $pad.classList.add('columns');
-    
-                $row.appendChild($pad);                
-            });
+            chunk.forEach((item) => this.bindItem($row, item.title, item.description));
             
             $container.appendChild($row);
         })
+    }
+    
+    bindItems($container, itemsGrouped) {
+        this.$searchResults.innerHTML = '';
+
+        Object.keys(itemsGrouped).forEach(groupName => 
+            this.bindItemsSection($container, itemsGrouped[groupName], groupName))
     }
 
     get showFilter() {
@@ -118,49 +95,29 @@ class ItemsModule {
         this.bindFilter(this.$filterThemes, data['all-themes']); 
         this.bindFilter(this.$filterGroupBy, ['newest', 'oldest', 'by discipline', 'by theme', 'by age']);
 
-        this.bindItemsSection(this.$searchResults, data['items'], 'Physics');
-        this.bindItemsSection(this.$searchResults, data['items'], 'Physics 2');
-        this.bindItemsSection(this.$searchResults, data['items'], 'Physics 3');
+        this._itemsDataProvider = new ItemsDataProvider(this._items);
     }
 
     onFilterChange(name, value) {
-        let searchResults = null;
-        
-        if (name === 'groupBy' && value == 'by discipline') {
-            searchResults = _.groupBy(this._items, item => item.discipline);
-        }
+        console.log(`filter ${name} raised changed to ${value}`);
 
-        if (name === 'groupBy' && value == 'by age') {
-            searchResults = _.groupBy(this._items, item => item.ageRange)
-        }
-
-        if (name == 'groupBy' && value == 'by theme') {
-            
-            let expandedByTheme = this._items
-                .reduce((prev, next) => [...prev, ...next.themes.map(t => { return { ...next, themes: t}})], [])
-
-            searchResults = _.groupBy(expandedByTheme, item => item.themes);
-        }
-
-        if (name == 'groupBy' && value == 'newest') {
-            this._items.sort((item1, item2) => item1.date.localeCompare(item2.date));
-
-            searchResults = _.groupBy(this._items, item => 'By Date');
-        }
-        
-        if (name == 'groupBy' && value == 'oldest') {
-            this._items.sort((item1, item2) => item2.date.localeCompare(item1.date));
-
-            searchResults = _.groupBy(this._items, item => 'By Date');
-        }
-
-        this.$searchResults.innerHTML = '';
-
-        Object.keys(searchResults).map(groupName => 
-            this.bindItemsSection(this.$searchResults, searchResults[groupName], groupName))
-    }
-
+        if (name == 'groupBy')
+            this._groupBy = value;
+        else
+            this._selectedFilters[name] = value;
     
+        let items = Object.entries(this._selectedFilters) // applying filters
+            .reduce((accumulator, filterPair) => {
+                const filterName = filterPair[0];
+                const filterValue = filterPair[1];
+                
+                return accumulator.applyFilter(filterName, filterValue);
+            }, this._itemsDataProvider);
+
+            items = items.applyGroupingAndSort(this._groupBy);
+
+        this.bindItems(this.$searchResults, items);
+    }
 }
 
 const itemsController = new ItemsModule();
@@ -168,4 +125,3 @@ const itemsController = new ItemsModule();
 fetch('data/fixtures.json')
     .then((response) => response.json())
     .then((json) => itemsController.onLoad(json));
-

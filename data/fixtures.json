@@ -32,10 +32,10 @@
         },
         { 
             "id": 4, 
-            "title": "Dinosaurs", 
-            "description": "One day in life of a tiranosaur", 
+            "title": "Atoms", 
+            "description": "One day in life of a Helium", 
             "date": "2018-12-12",
-            "discipline": "Foreign Languages",          
+            "discipline": "Physics",          
             "methods": ["in group", "brainstorm"],
             "themes": ["ads", "media consumering"],
             "ageRange": "adults"
@@ -78,6 +78,16 @@
             "discipline": "Foreign Languages",          
             "methods": ["in group", "brainstorm"],
             "themes": ["ads", "media consumering"],
+            "ageRange": "elementary"
+        },
+        { 
+            "id": 9, 
+            "title": "Not fishes", 
+            "description": "One day in life of a Bandersnatch", 
+            "date": "2018-08-12",
+            "discipline": "Math",          
+            "methods": ["in group", "brainstorm"],
+            "themes": ["ads", "fact checking"],
             "ageRange": "elementary"
         }
     ],
