@@ -93,21 +93,22 @@
         }
     ],
     "all-disciplines": [
-        "Physics",
-        "Foreign Languages",
-        "Geography",
-        "Biology",
-        "History"
+        { "key": "Physics", "text": "Фізіка" },
+        { "key": "Foreign Languages", "text": "Замежная мова" },
+        { "key": "Geography", "text": "Геаграфія" },
+        { "key": "Biology", "text": "Біялогія" },
+        { "key": "History", "text": "Гісторыя" },
+        { "key": "Extra-class activities", "text": "Пазакласныя заняткі" }
     ],
     "all-age-groups": [
-        "elementary",
-        "primary",
-        "adults"
+        { "key": "elementary", "text": "Дзеці" } ,
+        { "key": "primary", "text": "Падлеткі" },
+        { "key": "adults", "text": "Дарослыя" }
     ],
     "all-themes": [
-        "fact checking",
-        "media consumering",
-        "ads",
-        "facts and opinions"
+        { "key": "fact checking", "text": "Факт чэкінг" },
+        { "key": "media consumering", "text": "Медыя ўжыванне"},
+        { "key": "ads", "text": "Рэклама"},
+        { "key": "facts and opinions", "text": "Факты і Не факты:)"}
     ]
 }

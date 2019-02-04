@@ -13,13 +13,13 @@ export class SingleFilterModule {
             
             if (this.$selected && this.$selected !== null) {
                 this.$selected.classList.remove('selected');
-                from = this.$selected.innerText;
+                from = this.$selected.dataset.key;
             }
             
             if (this.$selected !== event.target) {               
                 this.$selected = event.target;
                 this.$selected.classList.add('selected');
-                to = this.$selected.innerText;
+                to = this.$selected.dataset.key;
             } else {
                 this.$selected == null;
             }
@@ -35,7 +35,7 @@ export class SingleFilterModule {
     
     get selectedValue() {
         if (this.$selected)
-            return this.$selected.innerText;
+            return this.$selected.dataset.key;
         else return null;
     }
 
@@ -43,7 +43,7 @@ export class SingleFilterModule {
         if (this.$selected)
             this.$selected.classList.remove('selected');
 
-        let $target = Array.from(this.$element.querySelectorAll('a')).find(($el) => SingleFilterModule.compareWithNoWhiteSpace($el.innerText, value));
+        let $target = Array.from(this.$element.querySelectorAll('a')).find(($el) => SingleFilterModule.compareWithWhiteSpaceIgnore($el.dataset.key, value));
 
         if ($target !== this.$selected && $target) {                        
             this.$selected = $target;
@@ -58,7 +58,7 @@ export class SingleFilterModule {
         }
     }
 
-    static get compareWithNoWhiteSpace() {
+    static get compareWithWhiteSpaceIgnore() {
         return (str1, str2) => str1.toUpperCase().replace(' ', '') === str2.toUpperCase().replace(' ', '')
     }
 }

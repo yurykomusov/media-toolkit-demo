@@ -29,7 +29,7 @@ export default class ItemsDataProvider {
     }
 
     applyGroupingAndSort(groupBy) {
-        let groupingFunc;
+        let groupingFunc = (data) => data;
 
         if (groupBy == 'by discipline') {
             groupingFunc = (data) => _.groupBy(data, item => item.discipline);

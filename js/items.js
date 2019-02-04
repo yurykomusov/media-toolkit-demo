@@ -43,7 +43,7 @@ class ItemsModule {
     }
 
     bindFilter($container, items) {
-        $container.innerHTML = items.map((item) => `<li><a>${item}<a></li>`)
+        $container.innerHTML = items.map((item) => `<li><a data-key="${item.key}">${item.text}</a></li>`)
             .reduce((item1, item2) => item1.concat(item2));
     }
 
@@ -58,7 +58,7 @@ class ItemsModule {
             $container.appendChild($pad);
     }
 
-    bindItemsSection($container, items, title) {
+    bindItemsSection($container, items, title) {           
         let $title = document.createElement('h4');
         $title.classList.add('section-title');
         $title.innerText = title;
@@ -78,10 +78,29 @@ class ItemsModule {
     }
     
     bindItems($container, itemsGrouped) {
+        if (Object.keys(itemsGrouped).length == 0) {
+            this.$searchResults.innerHTML = 'Не знойдзена ніводнага практыкавання:( Паспрабуйце пашукаць па іншых крытэрыях'
+            return;    
+        }
+
         this.$searchResults.innerHTML = '';
 
-        Object.keys(itemsGrouped).forEach(groupName => 
-            this.bindItemsSection($container, itemsGrouped[groupName], groupName))
+        Object.keys(itemsGrouped).forEach(groupName => this.bindItemsSection($container, itemsGrouped[groupName], this.getGroupTitleByKey(groupName, this.filters['groupBy'].selectedValue)))
+    }
+
+    getGroupTitleByKey(key, groupBy) {
+        if (groupBy === 'newest') 
+            return 'З ранніх';
+        if (groupBy === 'oldest') 
+            return 'З апошніх';
+        if (groupBy === 'by discipline')
+            return this._allDisciplines.find(i => i.key === key).text
+        
+        if (groupBy === 'by theme')
+            return this._allThemes.find(i => i.key === key).text
+
+        if (groupBy === 'by age')
+            return this._allAgeGroups.find(i => i.key === key).text
     }
 
     get showFilter() {
@@ -101,10 +120,22 @@ class ItemsModule {
 
     onDataLoaded(data) {
         this._items = data['items'];
-        this.bindFilter(this.$filterDisciplines, data['all-disciplines']); 
-        this.bindFilter(this.$filterAgeGroups, data['all-age-groups']); 
-        this.bindFilter(this.$filterThemes, data['all-themes']); 
-        this.bindFilter(this.$filterGroupBy, ['newest', 'oldest', 'by discipline', 'by theme', 'by age']);
+        this._allDisciplines = data['all-disciplines'];
+        this._allAgeGroups = data['all-age-groups'];
+        this._allThemes = data['all-themes'];
+
+        this.bindFilter(this.$filterDisciplines, this._allDisciplines); 
+        this.bindFilter(this.$filterAgeGroups, this._allAgeGroups); 
+        this.bindFilter(this.$filterThemes, this._allThemes); 
+        this.bindFilter(this.$filterGroupBy, 
+            [
+                { key: "newest", text: "Новыя"},
+                { key: "oldest", text: "Старыя"},
+                { key: "by discipline", text: "Па прадметах"},
+                { key: "by theme", text: "Па тэмах"},
+                { key: "by age", text: "Па мэтавай групе"},
+            ]);
+
         this._isDataLoaded = true;
 
         // set default filter
@@ -130,6 +161,8 @@ class ItemsModule {
             .executeQuery();
 
         this.bindItems(this.$searchResults, items);
+
+        
     }
 
     onUrlChange(location) {

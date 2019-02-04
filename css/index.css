@@ -40,6 +40,10 @@ li > a.selected {
     color: indianred;
 }
 
+li {
+    list-style: circle outside;
+}
+
 /* items.html */
 
 .tab {
