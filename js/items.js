@@ -67,6 +67,8 @@ class ItemsModule {
 
         _.chunk(items, 4).forEach(chunk => {
             let $row = document.createElement('div');
+
+            $row.addEventListener('click', () => window.location = 'details.html');
             $row.classList.add('row');
 
             chunk.forEach((item) => this.bindItem($row, item.title, item.description));
@@ -107,6 +109,9 @@ class ItemsModule {
 
         // set default filter
         this.filters['groupBy'].selectedValue = 'by discipline';
+
+        // set links
+
     }
 
     onFilterChange(name, value) {
