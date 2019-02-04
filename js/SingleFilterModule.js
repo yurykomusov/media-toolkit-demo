@@ -1,5 +1,5 @@
 export class SingleFilterModule {
-    constructor(element) {
+    constructor(element) {          
         this.$element = element;
         this._selectedValue = null;
         this.$selected = null;
@@ -32,6 +32,7 @@ export class SingleFilterModule {
     set onChange(value) {
         this._onChange = value;
     }
+    
     get selectedValue() {
         if (this.$selected)
             return this.$selected.innerText;
@@ -39,21 +40,25 @@ export class SingleFilterModule {
     }
 
     set selectedValue(value) {
-        this.$selected.classList.remove('selected');
+        if (this.$selected)
+            this.$selected.classList.remove('selected');
 
-        let $target = this.$element.querySelectorAll('a').find(($el) => $el.innerText === value);
+        let $target = Array.from(this.$element.querySelectorAll('a')).find(($el) => SingleFilterModule.compareWithNoWhiteSpace($el.innerText, value));
 
-        if (!$target) {
-            this.$selected = null;
-        } else if ($target !== this.$selected) {
-            this.$selected.classList.toggle('selected', $target !== this.$selected);
+        if ($target !== this.$selected && $target) {                        
+            this.$selected = $target;
             
-            if (self._onChange !== null)
-                self._onChange(this.selectedValue, value);
+            if (this.$selected !== null)
+                this.$selected.classList.toggle('selected');
+
+            if (this._onChange !== null)
+                this._onChange(this.selectedValue, value);
+        } else {
+            return;
         }
+    }
 
-        $target.classList.toggle('selected');            
-
-        this.$selected = $target;
+    static get compareWithNoWhiteSpace() {
+        return (str1, str2) => str1.toUpperCase().replace(' ', '') === str2.toUpperCase().replace(' ', '')
     }
 }

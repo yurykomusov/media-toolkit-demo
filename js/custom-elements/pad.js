@@ -30,7 +30,7 @@ class CustomPad extends HTMLElement {
                 ${this.description}
             </div>
         </div>`;
-    }
+    }    
 
     // static get observedAttributes() {
     //     return ['data-title', 'data-description'];

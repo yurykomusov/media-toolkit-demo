@@ -6,6 +6,7 @@ class ItemsModule {
     constructor() {
         this._showFilter = false;
         this._data = [];
+        this._isDataLoaded = false;
         this._itemsDataProvider = null;        
 
         this.$filterBox = document.querySelector('#filter-box');
@@ -23,7 +24,8 @@ class ItemsModule {
         let ageGroupFilter = new SingleFilterModule(this.$filterAgeGroups);
         let themeFilter = new SingleFilterModule(this.$filterThemes);
         let groupByFilter = new SingleFilterModule(this.$filterGroupBy);
-        
+
+       
         disciplineFilter.onChange = (from, to) => this.onFilterChange('discipline', to);
         themeFilter.onChange = (from, to) => this.onFilterChange('theme', to);
         ageGroupFilter.onChange = (from, to) => this.onFilterChange('ageGroup', to);
@@ -31,6 +33,13 @@ class ItemsModule {
 
         this._selectedFilters = {}; // { filterName, filterValue}
         this._groupBy = null;
+
+        this.filters = {
+            'discipline': disciplineFilter,
+            'theme': themeFilter,
+            'ageGroup': ageGroupFilter,
+            'groupBy': groupByFilter
+        }
     }
 
     bindFilter($container, items) {
@@ -88,35 +97,56 @@ class ItemsModule {
             this.$filterBox.setAttribute('style', 'display: block');
     }
 
-    onLoad(data) {
+    onDataLoaded(data) {
         this._items = data['items'];
         this.bindFilter(this.$filterDisciplines, data['all-disciplines']); 
         this.bindFilter(this.$filterAgeGroups, data['all-age-groups']); 
         this.bindFilter(this.$filterThemes, data['all-themes']); 
         this.bindFilter(this.$filterGroupBy, ['newest', 'oldest', 'by discipline', 'by theme', 'by age']);
+        this._isDataLoaded = true;
 
-        this._itemsDataProvider = new ItemsDataProvider(this._items);
+        // set default filter
+        this.filters['groupBy'].selectedValue = 'by discipline';
     }
 
     onFilterChange(name, value) {
-        console.log(`filter ${name} raised changed to ${value}`);
+        console.log(`filter ${name} changed to ${value}`);
 
         if (name == 'groupBy')
             this._groupBy = value;
         else
             this._selectedFilters[name] = value;
+
+        let itemsDataProvider = new ItemsDataProvider(this._items)
     
         let items = Object.entries(this._selectedFilters) // applying filters
-            .reduce((accumulator, filterPair) => {
-                const filterName = filterPair[0];
-                const filterValue = filterPair[1];
-                
-                return accumulator.applyFilter(filterName, filterValue);
-            }, this._itemsDataProvider);
-
-            items = items.applyGroupingAndSort(this._groupBy);
+            .reduce((accumulator, [filterName, filterValue]) => accumulator.applyFilter(filterName, filterValue), itemsDataProvider)
+            .applyGroupingAndSort(this._groupBy)
+            .executeQuery();
 
         this.bindItems(this.$searchResults, items);
+    }
+
+    onUrlChange(location) {
+        let searchParams = new URLSearchParams(location.search);
+
+        if (searchParams.has('ageGroup')) {
+            this.filters['ageGroup'].selectedValue = searchParams.get('ageGroup');
+            this.filters['groupBy'].selectedValue = 'by discipline'
+        }
+            
+        if (searchParams.has('discipline')) {
+            this.filters['discipline'].selectedValue = searchParams.get('discipline');
+            this.filters['groupBy'].selectedValue = 'by age'
+        }
+
+        if (searchParams.has('theme')) {
+            this.filters['theme'].selectedValue = searchParams.get('theme');
+            this.filters['groupBy'].selectedValue = 'by discipline';
+        }
+
+        // if (searchParams.has('groupBy'))
+        //     this.filter['groupBy'].selectedValue = searchParams.get('groupBy');
     }
 }
 
@@ -124,4 +154,6 @@ const itemsController = new ItemsModule();
 
 fetch('data/fixtures.json')
     .then((response) => response.json())
-    .then((json) => itemsController.onLoad(json));
+    .then((json) => itemsController.onDataLoaded(json));
+
+window.addEventListener('load', () => itemsController.onUrlChange(window.location) )

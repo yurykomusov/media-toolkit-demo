@@ -5,17 +5,18 @@
             "title": "Crocodiles", 
             "description": "One day in life of a crocodile", 
             "date": "2018-12-12",
-            "discipline": "Extra-class activities",          
+            "discipline": "Geography",          
             "methods": ["in group", "brainstorms"],
             "themes": ["ads"],
-            "ageRange": "elementary" 
+            "ageRange": "elementary",
+            "minutes": "30"
         },
         { 
             "id": 2, 
             "title": "Birds", 
             "description": "One day in life of a birdy", 
             "date": "2018-05-12",
-            "discipline": "Nature Science",          
+            "discipline": "Geography",          
             "methods": ["in group", "brainstorms"],
             "themes": ["ads"],
             "ageRange": "primary"
@@ -27,7 +28,7 @@
             "date": "2017-12-02",
             "discipline": "Extra-class activities",          
             "methods": ["in group", "brainstorms"],
-            "themes": ["facts and opitions"],
+            "themes": ["facts and opinions"],
             "ageRange": "elementary"
         },
         { 
@@ -35,7 +36,7 @@
             "title": "Atoms", 
             "description": "One day in life of a Helium", 
             "date": "2018-12-12",
-            "discipline": "Physics",          
+            "discipline": "History",          
             "methods": ["in group", "brainstorm"],
             "themes": ["ads", "media consumering"],
             "ageRange": "adults"
@@ -45,7 +46,7 @@
             "title": "Fishes", 
             "description": "One day in life of a baracuda", 
             "date": "2018-12-12",
-            "discipline": "Foreign Languages",          
+            "discipline": "Biology",          
             "methods": ["in group", "brainstorm"],
             "themes": ["ads", "media consumering"],
             "ageRange": "adults"
@@ -67,7 +68,7 @@
             "date": "2018-09-12",
             "discipline": "Foreign Languages",          
             "methods": ["in group", "brainstorm"],
-            "themes": ["ads", "media consumering"],
+            "themes": ["ads", "media consumering", "facts and opinions"],
             "ageRange": "adults"
         },
         { 
@@ -85,7 +86,7 @@
             "title": "Not fishes", 
             "description": "One day in life of a Bandersnatch", 
             "date": "2018-08-12",
-            "discipline": "Math",          
+            "discipline": "History",          
             "methods": ["in group", "brainstorm"],
             "themes": ["ads", "fact checking"],
             "ageRange": "elementary"
@@ -94,9 +95,9 @@
     "all-disciplines": [
         "Physics",
         "Foreign Languages",
-        "Math",
-        "Nature Science",
-        "Extra-class activities"
+        "Geography",
+        "Biology",
+        "History"
     ],
     "all-age-groups": [
         "elementary",
@@ -104,7 +105,6 @@
         "adults"
     ],
     "all-themes": [
-        "information search",
         "fact checking",
         "media consumering",
         "ads",

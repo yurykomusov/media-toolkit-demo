@@ -5,56 +5,79 @@ export default class ItemsDataProvider {
         this._defaultGrouping = 'by discipline';
         this._data = jsonData;
         this._filterConfig = {
-            "discipline": (filterValue) => (item) => item.discipline == filterValue,
-            "ageGroup": (filterValue) => (item) => item.ageRange == filterValue,
-            "theme": (filterValue) => (item) => item.themes.indexOf(filterValue) >= 0
+            "discipline": (filterValue) => (item) => item.discipline.toUpperCase() == filterValue.toUpperCase(),
+            "ageGroup": (filterValue) => (item) => item.ageRange.toUpperCase() == filterValue.toUpperCase(),
+            "theme": (filterValue) => (item) => item.themes.toUpperCase() == filterValue.toUpperCase()
         }
+        this._filtersToApply = [];
+        this._groupingToApply = (data) => ({ "": data });
+        this._expandBy = [];
     }
 
     applyFilter(filterName, filterValue) {
-        if (!filterValue || filterValue == '') return new ItemsDataProvider(this._data);
+        if (!filterValue || filterValue == '')
+            return this;
 
         let filterFunc = this._filterConfig[filterName];
 
-        if (!filterFunc) 
+        if (!filterFunc)
             throw Error(`Could not find appropriate filter for ${filterName}`);
 
-        return new ItemsDataProvider(this._data.filter(filterFunc(filterValue)));
+        this._filtersToApply.push(filterFunc(filterValue));
+
+        return this;
     }
 
     applyGroupingAndSort(groupBy) {
-
-        if (!groupBy || groupBy === '') return { default: this._data };
+        let groupingFunc;
 
         if (groupBy == 'by discipline') {
-            return _.groupBy(this._data, item => item.discipline);
+            groupingFunc = (data) => _.groupBy(data, item => item.discipline);
         }
 
         if (groupBy == 'by age') {
-            return _.groupBy(this._data, item => item.ageRange)
+            groupingFunc = (data) => _.groupBy(data, item => item.ageRange);
         }
 
         if (groupBy == 'by theme') {
-            let expandedByTheme = this._data
-                .reduce((prev, next) => [...prev, ...next.themes.map(t => { return { ...next, themes: t}})], [])
-
-            return _.groupBy(expandedByTheme, item => item.themes);
+            groupingFunc = (data) => _.groupBy(data, item => item.themes);
         }
 
         if (groupBy == 'newest') {
-            this._data.sort((item1, item2) => item1.date.localeCompare(item2.date));
+            groupingFunc = (data) => {
+                data.sort((item1, item2) => item1.date.localeCompare(item2.date));
 
-            return _.groupBy(this._data, () => 'From Newest To Oldest');
+                return _.groupBy(data, () => 'From Newest To Oldest');
+            }
         }
-        
+
         if (groupBy == 'oldest') {
-            this._data.sort((item1, item2) => item2.date.localeCompare(item1.date));
-
-            return _.groupBy(this._data, () => 'From Oldest To Newest');
+            groupingFunc = (data) => {
+                data.sort((item1, item2) => item2.date.localeCompare(item1.date));
+                return _.groupBy(data, () => 'From Oldest To Newest');
+            }
         }
+
+        // this transformation allow to filter by array-properties like theme
+        let expandedByThemeFunc = (data) => data.reduce((prev, next) => [...prev, ...next.themes.map(t => ({...next, themes: t }))], []);
+
+        this._groupingToApply = (data) => groupingFunc(expandedByThemeFunc(data)); // I am doing something crazy!
+
+        return this;
     }
 
-    // valueOf() {
-    //     this._data;
-    // }
+    executeQuery() {
+        // group by 
+        // apply filters
+        // remove empty sections
+
+        let grouped = this._groupingToApply(this._data);
+        let aggregatedFilter = (data) => this._filtersToApply.reduce((accumulator, singleFilter) => accumulator.filter(singleFilter), data);
+
+        return Object.entries(grouped)
+            .map(([key, items]) => ([key, aggregatedFilter(items)]))
+            .filter(([key, items]) => items.length > 0)
+            .reduce((accumulator, [key, items]) => ({ ...accumulator, [key]: items }), {})
+            
+    }
 }
