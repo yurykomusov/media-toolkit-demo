@@ -9,7 +9,8 @@
             "methods": ["in group", "brainstorms"],
             "themes": ["ads"],
             "ageRange": "elementary",
-            "minutes": "30"
+            "minutes": "30",
+            "popular": "true"
         },
         { 
             "id": 2, 
@@ -19,7 +20,8 @@
             "discipline": "Geography",          
             "methods": ["in group", "brainstorms"],
             "themes": ["ads"],
-            "ageRange": "primary"
+            "ageRange": "primary",
+            "popular": "true"
         },
         { 
             "id": 3, 
@@ -29,7 +31,8 @@
             "discipline": "Extra-class activities",          
             "methods": ["in group", "brainstorms"],
             "themes": ["facts and opinions"],
-            "ageRange": "elementary"
+            "ageRange": "elementary",
+            "popular": "true"
         },
         { 
             "id": 4, 
@@ -39,7 +42,8 @@
             "discipline": "History",          
             "methods": ["in group", "brainstorm"],
             "themes": ["ads", "media consumering"],
-            "ageRange": "adults"
+            "ageRange": "adults",
+            "popular": "true"
         },
         { 
             "id": 5, 

@@ -1,3 +1,5 @@
+import ItemsDataProvider from './ItemsDataProvider.js';
+
 class IndexModule {  
     constructor() {
         
@@ -19,6 +21,45 @@ class IndexModule {
         document.querySelector('#mediaAssessment').addEventListener('click', () => window.location = 'items.html?theme=facts and opinions')
         document.querySelector('#createAndUseMedia').addEventListener('click', () => window.location = 'items.html?theme=fact checking')
     }
+
+    onDataLoaded(data) {
+        this._items = data['items'];
+
+        let itemsDataProvider = new ItemsDataProvider(this._items);
+        
+        let $recentContainer = document.querySelector('#recent');
+        let recentItemsGrouped = itemsDataProvider.applyGroupingAndSort('newest').executeQuery();
+        let recentItems = recentItemsGrouped[Object.keys(recentItemsGrouped)[0]];
+
+        recentItems
+            .map(this.createPad)
+            .slice(0, 4)
+            .forEach(element => $recentContainer.appendChild(element));
+        
+        let $popularContainer = document.querySelector('#popular');
+        let popularItemsGrouped = itemsDataProvider.applyGroupingAndSort('popular').executeQuery();
+        let popularItems = popularItemsGrouped[Object.keys(popularItemsGrouped)[0]];
+
+        popularItems
+            .map(this.createPad)
+            .slice(0, 4)
+            .forEach(element => $popularContainer.appendChild(element));
+    }
+
+    createPad(item) {        
+        let $pad = document.createElement('custom-pad');
+        $pad.dataset.title = item.title;
+        $pad.dataset.description = item.description;
+        $pad.classList.add('three');
+        $pad.classList.add('columns');
+        $pad.addEventListener('click', () => window.location = 'details.html');
+
+        return $pad;
+    }
 }
 
-new IndexModule();
+const indexController = new IndexModule();
+
+fetch('data/fixtures.json')
+    .then((response) => response.json())
+    .then((json) => indexController.onDataLoaded(json));

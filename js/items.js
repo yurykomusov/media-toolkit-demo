@@ -7,7 +7,6 @@ class ItemsModule {
         this._showFilter = false;
         this._data = [];
         this._isDataLoaded = false;
-        this._itemsDataProvider = null;        
 
         this.$filterBox = document.querySelector('#filter-box');
         this.$trigger = document.querySelector('#filter-toggle');

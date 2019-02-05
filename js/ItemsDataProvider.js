@@ -26,7 +26,7 @@ export default class ItemsDataProvider {
         this._filtersToApply.push(filterFunc(filterValue));
 
         return this;
-    }
+    }        
 
     applyGroupingAndSort(groupBy) {
         let groupingFunc = (data) => data;
@@ -45,16 +45,23 @@ export default class ItemsDataProvider {
 
         if (groupBy == 'newest') {
             groupingFunc = (data) => {
-                data.sort((item1, item2) => item1.date.localeCompare(item2.date));
+                let sorted = data.slice().sort((item1, item2) => item1.date.localeCompare(item2.date));
 
-                return _.groupBy(data, () => 'From Newest To Oldest');
+                return _.groupBy(sorted, () => 'From Newest To Oldest');
             }
         }
 
         if (groupBy == 'oldest') {
             groupingFunc = (data) => {
-                data.sort((item1, item2) => item2.date.localeCompare(item1.date));
-                return _.groupBy(data, () => 'From Oldest To Newest');
+                let sorted = data.slice().sort((item1, item2) => item2.date.localeCompare(item1.date));
+                return _.groupBy(sorted, () => 'From Oldest To Newest');
+            }
+        }
+
+        if (groupBy == 'popular') {
+            groupingFunc = (data) => {
+                let sorted = data.slice().sort((item1, item2) => (item1.popular || false) - (item2.popular || false));
+                return _.groupBy(sorted, () => 'From Oldest To Newest');
             }
         }
 
@@ -78,6 +85,6 @@ export default class ItemsDataProvider {
             .map(([key, items]) => ([key, aggregatedFilter(items)]))
             .filter(([key, items]) => items.length > 0)
             .reduce((accumulator, [key, items]) => ({ ...accumulator, [key]: items }), {})
-            
     }
+
 }
