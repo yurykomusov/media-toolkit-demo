@@ -70,7 +70,7 @@ class ItemsModule {
             $row.addEventListener('click', () => window.location = 'details.html');
             $row.classList.add('row');
 
-            chunk.forEach((item) => this.bindItem($row, item.title, item.description));
+            chunk.forEach((item) => this.bindItem($row, item.discipline, item.title));
             
             $container.appendChild($row);
         })
@@ -159,17 +159,20 @@ class ItemsModule {
             .applyGroupingAndSort(this._groupBy)
             .executeQuery();
 
-        this.bindItems(this.$searchResults, items);
-
-        
+        this.bindItems(this.$searchResults, items);        
     }
 
     onUrlChange(location) {
         let searchParams = new URLSearchParams(location.search);
+        let $title = document.querySelector('#exercise-title');ъ
 
+        $title.innerHTML = $title.innerHTML + ' усе';
+        
         if (searchParams.has('ageGroup')) {
             this.filters['ageGroup'].selectedValue = searchParams.get('ageGroup');
-            this.filters['groupBy'].selectedValue = 'by discipline'
+            this.filters['groupBy'].selectedValue = 'by discipline';
+
+            $title.innerHTML = $title.innerHTML + ' '
         }
             
         if (searchParams.has('discipline')) {
@@ -181,16 +184,13 @@ class ItemsModule {
             this.filters['theme'].selectedValue = searchParams.get('theme');
             this.filters['groupBy'].selectedValue = 'by discipline';
         }
-
-        // if (searchParams.has('groupBy'))
-        //     this.filter['groupBy'].selectedValue = searchParams.get('groupBy');
     }
 }
 
 const itemsController = new ItemsModule();
 
-fetch('data/fixtures.json')
+fetch('data/exercises.json')
     .then((response) => response.json())
     .then((json) => itemsController.onDataLoaded(json));
 
-window.addEventListener('load', () => itemsController.onUrlChange(window.location) )
+window.addEventListener('load', () => itemsController.onUrlChange(window.location))

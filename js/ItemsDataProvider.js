@@ -5,7 +5,7 @@ export default class ItemsDataProvider {
         this._defaultGrouping = 'by discipline';
         this._data = jsonData;
         this._filterConfig = {
-            "discipline": (filterValue) => (item) => item.discipline.toUpperCase() == filterValue.toUpperCase(),
+            "discipline": (filterValue) => (item) => item.discipline_id.toUpperCase() == filterValue.toUpperCase(),
             "ageGroup": (filterValue) => (item) => item.ageRange.toUpperCase() == filterValue.toUpperCase(),
             "theme": (filterValue) => (item) => item.themes.toUpperCase() == filterValue.toUpperCase()
         }
@@ -26,13 +26,13 @@ export default class ItemsDataProvider {
         this._filtersToApply.push(filterFunc(filterValue));
 
         return this;
-    }        
+    }
 
     applyGroupingAndSort(groupBy) {
         let groupingFunc = (data) => data;
 
         if (groupBy == 'by discipline') {
-            groupingFunc = (data) => _.groupBy(data, item => item.discipline);
+            groupingFunc = (data) => _.groupBy(data, item => item.discipline_id);
         }
 
         if (groupBy == 'by age') {
@@ -65,8 +65,11 @@ export default class ItemsDataProvider {
             }
         }
 
+        let needExpand = groupBy == 'by theme';
         // this transformation allow to filter by array-properties like theme
-        let expandedByThemeFunc = (data) => data.reduce((prev, next) => [...prev, ...next.themes.map(t => ({...next, themes: t }))], []);
+        let expandedByThemeFunc = needExpand
+            ? (data) => data.reduce((prev, next) => [...prev, ...next.themes.map(t => ({...next, themes: t }))], [])
+            : (data) => data;
 
         this._groupingToApply = (data) => groupingFunc(expandedByThemeFunc(data)); // I am doing something crazy!
 
@@ -83,8 +86,8 @@ export default class ItemsDataProvider {
 
         return Object.entries(grouped)
             .map(([key, items]) => ([key, aggregatedFilter(items)]))
-            .filter(([key, items]) => items.length > 0)
-            .reduce((accumulator, [key, items]) => ({ ...accumulator, [key]: items }), {})
+            .filter(([key, items]) => items.length > 0) // show only sections with elements
+            .reduce((accumulator, [key, items]) => ({...accumulator, [key]: items }), {})
     }
 
 }

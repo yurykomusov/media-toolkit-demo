@@ -12,9 +12,9 @@ class IndexModule {
         $adults.addEventListener('click', () => window.location = `items.html?ageGroup=adults`);
 
         document.querySelector('#biology').addEventListener('click', () => window.location = 'items.html?discipline=biology')
-        document.querySelector('#geography').addEventListener('click', () => window.location = 'items.html?discipline=geography')
-        document.querySelector('#history').addEventListener('click', () => window.location = 'items.html?discipline=history')
-        document.querySelector('#foreignLanguage').addEventListener('click', () => window.location = 'items.html?discipline=foreignlanguages')
+        document.querySelector('#manandtheworld').addEventListener('click', () => window.location = 'items.html?discipline=manandtheworld')
+        document.querySelector('#educational').addEventListener('click', () => window.location = 'items.html?discipline=educational')
+        document.querySelector('#arts').addEventListener('click', () => window.location = 'items.html?discipline=arts')
 
         document.querySelector('#accessAndTrustToSources').addEventListener('click', () => window.location='items.html?theme=ads')
         document.querySelector('#mediaAnalysis').addEventListener('click', () => window.location='items.html?theme=media consumering')
@@ -28,8 +28,7 @@ class IndexModule {
         let itemsDataProvider = new ItemsDataProvider(this._items);
         
         let $recentContainer = document.querySelector('#recent');
-        let recentItemsGrouped = itemsDataProvider.applyGroupingAndSort('newest').executeQuery();
-        let recentItems = recentItemsGrouped[Object.keys(recentItemsGrouped)[0]];
+        
 
         recentItems
             .map(this.createPad)
@@ -48,8 +47,8 @@ class IndexModule {
 
     createPad(item) {        
         let $pad = document.createElement('custom-pad');
-        $pad.dataset.title = item.title;
-        $pad.dataset.description = item.description;
+        $pad.dataset.title = item.discipline;
+        $pad.dataset.description = item.title;
         $pad.classList.add('three');
         $pad.classList.add('columns');
         $pad.addEventListener('click', () => window.location = 'details.html');
@@ -60,6 +59,6 @@ class IndexModule {
 
 const indexController = new IndexModule();
 
-fetch('data/fixtures.json')
+fetch('data/exercises.json')
     .then((response) => response.json())
     .then((json) => indexController.onDataLoaded(json));

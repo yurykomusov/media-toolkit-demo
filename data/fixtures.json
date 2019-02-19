@@ -6,6 +6,7 @@
             "description": "One day in life of a crocodile", 
             "date": "2018-12-12",
             "discipline": "Geography",          
+            "discipline_id": "Geography",
             "methods": ["in group", "brainstorms"],
             "themes": ["ads"],
             "ageRange": "elementary",
@@ -18,6 +19,7 @@
             "description": "One day in life of a birdy", 
             "date": "2018-05-12",
             "discipline": "Geography",          
+            "discipline_id": "Geography",          
             "methods": ["in group", "brainstorms"],
             "themes": ["ads"],
             "ageRange": "primary",
@@ -29,6 +31,7 @@
             "description": "One day in life of a crocodile", 
             "date": "2017-12-02",
             "discipline": "Extra-class activities",          
+            "discipline_id": "Extra-class activities",          
             "methods": ["in group", "brainstorms"],
             "themes": ["facts and opinions"],
             "ageRange": "elementary",
@@ -39,7 +42,7 @@
             "title": "Atoms", 
             "description": "One day in life of a Helium", 
             "date": "2018-12-12",
-            "discipline": "History",          
+            "discipline_id": "History",          
             "methods": ["in group", "brainstorm"],
             "themes": ["ads", "media consumering"],
             "ageRange": "adults",
@@ -51,6 +54,7 @@
             "description": "One day in life of a baracuda", 
             "date": "2018-12-12",
             "discipline": "Biology",          
+            "discipline_id": "Biology",          
             "methods": ["in group", "brainstorm"],
             "themes": ["ads", "media consumering"],
             "ageRange": "adults"
@@ -61,6 +65,7 @@
             "description": "One day in life of a baracuda", 
             "date": "2018-10-01",
             "discipline": "Foreign Languages",          
+            "discipline_id": "Foreign Languages",          
             "methods": ["in group", "brainstorm"],
             "themes": ["ads", "media consumering"],
             "ageRange": "adults"
@@ -71,6 +76,7 @@
             "description": "One day in life of a yaz", 
             "date": "2018-09-12",
             "discipline": "Foreign Languages",          
+            "discipline_id": "Foreign Languages",          
             "methods": ["in group", "brainstorm"],
             "themes": ["ads", "media consumering", "facts and opinions"],
             "ageRange": "adults"
@@ -81,6 +87,7 @@
             "description": "One day in life of a cambala", 
             "date": "2018-08-12",
             "discipline": "Foreign Languages",          
+            "discipline_id": "Foreign Languages",          
             "methods": ["in group", "brainstorm"],
             "themes": ["ads", "media consumering"],
             "ageRange": "elementary"
@@ -91,6 +98,7 @@
             "description": "One day in life of a Bandersnatch", 
             "date": "2018-08-12",
             "discipline": "History",          
+            "discipline_id": "History",          
             "methods": ["in group", "brainstorm"],
             "themes": ["ads", "fact checking"],
             "ageRange": "elementary"

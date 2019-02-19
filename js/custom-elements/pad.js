@@ -22,7 +22,7 @@ class CustomPad extends HTMLElement {
 
     connectedCallback() {
         this.innerHTML = 
-        `<div class="pad">
+       `<div class="pad">
             <div class="image-container ${this.description ? "" : "image-container-full" }">
                 <h4>${this.title}</h4>
             </div>
@@ -30,6 +30,8 @@ class CustomPad extends HTMLElement {
                 ${this.description}
             </div>
         </div>`;
+
+        this.style.display = 'block';
     }    
 
     // static get observedAttributes() {
