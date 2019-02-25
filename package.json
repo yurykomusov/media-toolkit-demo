@@ -4,13 +4,20 @@
   "description": "One-page site for educational purposes",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "start": "parcel index.html"
   },
   "author": "Y. Komusau",
   "license": "ISC",
   "devDependencies": {
-    "webpack": "^4.28.4",
-    "webpack-cli": "^3.2.1"
+    "@babel/core": "^7.3.3",
+    "@babel/preset-react": "^7.0.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "parcel-bundler": "^1.11.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "react": "^16.8.3",
+    "react-dom": "^16.8.2",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1"
+  }
 }

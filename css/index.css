@@ -23,6 +23,7 @@ a {
     height: 150px;
     background-color: white;
     text-align: center;
+    overflow: hidden;
 }
 
 .pad .image-container {
@@ -34,6 +35,7 @@ a {
     align-items: center;
     transition: background-color 0.3s linear;
 }
+
 
 .pad .image-container:hover {
     background-color: plum;

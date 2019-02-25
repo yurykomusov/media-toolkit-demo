@@ -29,7 +29,7 @@ export default function getIndexModel(json) {
             { name: "Падлеткі", url: "/exercises?ageGroup=primary"},
             { name: "Дарослыя", url: "/exercises?ageGroup=adults"}
         ],
-        competentions: [
+        mediaCompetences: [
             { name: "Доступ і надзейнасць", url: "/exercises?theme=ads" },
             { name: "Аналіз медыя", url: "/exercises?theme=media%20consumering" },
             { name: "Ацэнка медыя", url: "/exercises?theme=facts%20and%20opinions" },
