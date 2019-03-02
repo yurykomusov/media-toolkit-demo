@@ -65,7 +65,7 @@ class App extends React.Component {
                         isLoading: false,
                         json: json
                     });    
-                }, 2000);
+                }, 1000);
             });
     }
 
@@ -85,7 +85,7 @@ class App extends React.Component {
                     <ContentContainerWithSpinner isLoading={this.state.isLoading}>
                         <Route exact path="/" component={() => <Index {...this.state.indexViewModel}/>}></Route>
                         <Route path="/exercise-list" component={(props) => <ExerciseList json={this.state.json} {...props}></ExerciseList>}></Route>
-                        <Route path="/exercise/:id" component={(props) => <Exercise {...props} exercise={this.state.json.items.filter((item) => item.id === props.match.params.id)[0]} ></Exercise>}></Route>
+                        <Route path="/exercise/:id" component={(props) => <Exercise {...props} json={this.state.json} exercise={this.state.json.items.filter((item) => item.id === props.match.params.id)[0]} ></Exercise>}></Route>
                         <Route path="/authors" component={() => <div>Site is under construction. Please be patient</div>}></Route>
                         <Route path="/about" component={() => <div>Site is under construction. Please be patient</div>}></Route>
                         <Route path="/help" component={() => <div>Site is under construction. Please be patient</div>}></Route>
