@@ -1,6 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Card from '../shared-components/card.jsx'
+import ItemsDataProvider from '../ItemsDataProvider.js';
+import * as _ from '../utils.js';
 
 class FilterList extends React.Component {
     constructor(props) {
@@ -8,21 +10,22 @@ class FilterList extends React.Component {
 
         this.onItemClick = this.onItemClick.bind(this);
         this.state = {
-            selected: props.selected
+            selected: props.selected,
+            handleChange: props.handleChange
         }
     }
 
     getActiveClassName(isSelected) {
-        if (isSelected) 
+        if (isSelected)
             return "selected";
-        else 
+        else
             return "";
     }
 
     render() {
         return (
         <ul>
-            {this.props.items.map(i => 
+            {this.props.items.map(i =>
                 <li data-key={i.key} key={i.key} onClick={this.onItemClick}>
                     <a className={this.getActiveClassName(i.key == this.state.selected)}>{i.text}</a>
                 </li>)}
@@ -30,9 +33,15 @@ class FilterList extends React.Component {
     }
 
     onItemClick(e) {
-        this.setState({ selected: e.currentTarget.dataset.key});
+        let selectedKey = e.currentTarget.dataset.key;
+        let currentKey = this.state.selected;
+        if (selectedKey !== currentKey) {
+            this.setState({ selected: selectedKey});
 
-        console.log("this is data-key")
+            if (this.props.handleChange !== null) {
+                this.props.handleChange(currentKey, selectedKey);
+            }
+        }
     }
 }
 
@@ -40,54 +49,50 @@ const FilterBox = (props) => (
     <div className="row">
         <div className="three columns">
             <label>Прадметы</label>
-            <FilterList items={props.disciplines} selected="arts"></FilterList>
+            <FilterList items={props.disciplines} selected={props.filterDisciplines} handleChange={props.onDisciplineFilterChange}></FilterList>
         </div>
         <div className="three columns">
             <label>Мэтавыя групы</label>
-            <FilterList items={props.ageGroups} selected="adults">
+            <FilterList items={props.ageGroups} selected={props.filterAgeGroup} handleChange={props.onAgeGroupFilterChange}>
             </FilterList>
         </div>
         <div className="three columns">
             <label>Тэмы</label>
-            <FilterList items={props.themes}></FilterList>
+            <FilterList items={props.themes} selected={props.filterThemes} handleChange={props.onThemesFilterChange}></FilterList>
         </div>
         <div className="three columns">
             <label>Згрупаваць па</label>
-            <FilterList items={props.sortAndGroup}>
+            <FilterList items={props.allSortAndGroup} selected={props.sortAndGroup} handleChange={props.onSortAndGroupChange}>
             </FilterList>
         </div>
     </div>
 );
 
-const SearchResult = (props) => (
-    <div className="row">
-        <div>
-            {`agegroup=${props.query.ageGroup},discipline=${props.query.disciplines},theme=${props.query.themes}`}
-        </div>
-        <h4 className="section-title">Group 1</h4>
-        <div className="row">
-            <Card className="three columns" title="One" description="One" linkTo=""></Card>
-            <Card className="three columns" title="Two" description="Two" linkTo=""></Card>
-            <Card className="three columns" title="Three" description="Three" linkTo=""></Card>
-            <Card className="three columns" title="Four" description="Four" linkTo=""></Card>
-        </div>
-        
-        <h4 className="section-title">Group 2</h4>
-        <div className="row">            
-            <Card className="three columns" title="One" description="One" linkTo=""></Card>
-            <Card className="three columns" title="Two" description="Two" linkTo=""></Card>
-            <Card className="three columns" title="Three" description="Three" linkTo=""></Card>
-            <Card className="three columns" title="Four" description="Four" linkTo=""></Card>
-        </div>
-    </div>
-);
+const SearchResultGroup = ({title, items}) => (
+    <React.Fragment>
+        <h4 className="section-title">{title}</h4>
+        {_.chunk(items, 4).map((chunk, index) => 
+            <div className="row" key={`title_${index}`}>
+                {chunk.map(item => <Card className="three columns" key={item.id} title={item.title} description={item.summary} linkTo={`/exercise/${item.id}`}></Card>)}
+            </div>)}
+    </React.Fragment>    
+)
+
+const SearchResult = ({foundItems}) => {
+    if (Object.keys(foundItems).length == 0) {
+        return <span>Не знойдзена ніводнага практыкавання:( Паспрабуйце пашукаць па іншых крытэрыях</span>
+    } else {
+        return Object.keys(foundItems).map(groupName => <SearchResultGroup key={groupName} title={groupName} items={foundItems[groupName]}></SearchResultGroup>)
+    }
+}
 
 class ExerciseList extends React.Component {
     constructor(props) {
         super(props);
-        
-        let searchParams = new URLSearchParams(props.location.search);
 
+        this.itemsDataProvider = new ItemsDataProvider(props.json['items']);
+
+        let searchParams = new URLSearchParams(props.location.search);
         this.state = {
             disciplines: [
                 { "key": "manandtheworld", "text": "Чалавек і свет" },
@@ -115,31 +120,94 @@ class ExerciseList extends React.Component {
                 { "key": "disinformation", "text": "Дэзінфармацыя" },
                 { "key": "infosourcing", "text": "Пошук і збор інфармацыі" }
             ],
-            sortAndGroup: [
+            allSortAndGroup: [
                 { "key": "newest", "text": "Новыя"},
                 { "key": "oldest", "text": "Старыя"},
                 { "key": "bydiscipline", "text": "Па прадметах"},
                 { "key": "byage", "text": "Па мэтавай групе"}
             ],
-            showFilters: false,
-            filterValues: {
-                ageGroup: searchParams.get('ageGroup') || '',
-                disciplines: searchParams.get('discipline') || '',
-                themes: searchParams.get('theme') || '',
-                sortAndGroup: "bydiscipline"
+            showFilters: searchParams.get('expand') === 'true',
+            filterAgeGroup: searchParams.get('ageGroup'),
+            filterDisciplines: searchParams.get('discipline'),
+            filterThemes: searchParams.get('theme'),
+            sortAndGroup: "by discipline",
+            foundItems: {
+                "Nothing was found": []
+            },
+            onAgeGroupFilterChange: (_, newValue) => {
+                window.location = `/exercise-list/?${this.getNewSearchUrl('ageGroup', newValue).toString()}`;
+                
+                // this.setState({filterAgeGroup: newValue})                
+                // this.setState({foundItems: this.getSearchResult()});
+            },
+            onDisciplineFilterChange: (_, newValue) => {
+                window.location = `/exercise-list/?${this.getNewSearchUrl('discipline', newValue).toString()}`;
+                // this.setState({filterDisciplines: newValue})
+                // this.setState({foundItems: this.getSearchResult()});
+            },
+            onThemesFilterChange: (_, newValue) => {
+                window.location = `/exercise-list/?${this.getNewSearchUrl('theme', newValue).toString()}`;
+                // this.setState({filterThemes: newValue})
+                // this.setState({foundItems: this.getSearchResult()});
+            },
+            onSortAndGroupChange: (_,newValue) => {
+                // this.setState({sortAndGroup: newValue})
+                // this.setState({foundItems: this.getSearchResult()});
             }
         }
-    }    
+    }
+
+    getNewSearchUrl(key, value) {
+        let url = new URL(window.location)
+        let urlParams = new URLSearchParams(url.search);
+
+        urlParams.set(key, value);
+        urlParams.set('expand', true);
+
+        return urlParams;
+    }
+
+    componentDidMount() {
+        this.setState({foundItems: this.getSearchResult()});
+    }
+
+    getSearchResult() {
+        let searchResult = this.itemsDataProvider
+            .applyFilter('ageGroup', this.state.filterAgeGroup)
+            .applyFilter('discipline', this.state.filterDisciplines)
+            .applyFilter('theme', this.state.filterThemes)
+            .applyGroupingAndSort(this.state.sortAndGroup)
+            .executeQuery();
+
+        return Object.keys(searchResult).reduce((accumulator, groupKey) => 
+            ({ ...accumulator, [this.getGroupTitleByKey(groupKey, this.state.sortAndGroup)]: searchResult[groupKey]}), {});
+    }
+
+    getGroupTitleByKey(key, groupBy) {
+        if (groupBy === 'newest') 
+            return 'З ранніх';
+        if (groupBy === 'oldest') 
+            return 'З апошніх';
+        if (groupBy === 'by discipline')
+            return this.state.disciplines.find(i => i.key === key).text
+        
+        if (groupBy === 'by theme')
+            return this.state.themes.find(i => i.key === key).text
+
+        if (groupBy === 'by age')
+            return this.state.ageGroups.find(i => i.key === key).text
+    }
+
 
     render() {
         return (
             <div>
                 <h2>Практыкаванні</h2>
                 <button onClick={() => this.setState({ showFilters: !this.state.showFilters})}>Фільтры</button>
-                {this.state.showFilters 
-                    ? <FilterBox {...this.state}></FilterBox> 
+                {this.state.showFilters
+                    ? <FilterBox {...this.state}></FilterBox>
                     : null}
-                <SearchResult query={this.state.filterValues}></SearchResult>
+                <SearchResult foundItems={this.state.foundItems}></SearchResult>
             </div>);
     }
 }

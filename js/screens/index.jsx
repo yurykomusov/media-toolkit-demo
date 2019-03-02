@@ -27,17 +27,17 @@ export default class Index extends React.Component {
 
             <SectionTitle className="row">Мэтавая група</SectionTitle>
             <div className="row">
-                <Card className="four columns" title="Дзеці" linkTo={`/exercise-list/?ageGroup=elementary`}/>
-                <Card className="four columns" title="Падлеткі" linkTo={`/exercise-list/?ageGroup=primary`}/>
-                <Card className="four columns"title="Дарослыя" linkTo={`/exercise-list/?ageGroup=adults`}/>
+                <Card className="four columns" title="Дзеці" linkTo="/exercise-list/?ageGroup=elementary"/>
+                <Card className="four columns" title="Падлеткі" linkTo="/exercise-list/?ageGroup=primary"/>
+                <Card className="four columns"title="Дарослыя" linkTo="/exercise-list/?ageGroup=adults"/>
             </div>
 
             <SectionTitle className="row">Прадметы</SectionTitle>
             <div className="row">
-                <Card className="three columns" title="Біялогія"/>
-                <Card className="three columns" title="Геаграфія"/>
-                <Card className="three columns" title="Гісторыя і грамадазнаўства"/>
-                <Card className="three columns" title="Замежная мова"/>
+                <Card className="three columns" title="Біялогія" linkTo="/exercise-list/?disicipline=biology"/>
+                <Card className="three columns" title="Геаграфія" linkTo="/exercise-list/?disicipline=geography"/>
+                <Card className="three columns" title="Гісторыя і грамадазнаўства" linkTo="/exercise-list/?disicipline=history"/>
+                <Card className="three columns" title="Чалавек і свет" linkTo="/exercise-list/?disicipline=manandtheworld"/>
             </div>
 
             <SectionTitle className="row">Медыя кампетэнцыі</SectionTitle>
