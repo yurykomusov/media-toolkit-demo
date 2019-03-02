@@ -47,7 +47,7 @@ class App extends React.Component {
             json: null
         };
 
-        fetch('/exercises.json')
+        fetch('exercises.json')
             .then(response => response.json())
             .then(json => {
                 setTimeout(() => {
