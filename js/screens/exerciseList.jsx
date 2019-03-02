@@ -4,6 +4,8 @@ import Card from '../shared-components/card.jsx'
 import ItemsDataProvider from '../services/ItemsDataProvider.js';
 import * as _ from '../utils.js';
 
+const DEFAULT_SORT = 'by discipline';
+
 class FilterList extends React.Component {
     constructor(props) {
         super(props);
@@ -95,43 +97,21 @@ class ExerciseList extends React.Component {
 
         let searchParams = new URLSearchParams(props.location.search);
         this.state = {
-            disciplines: [
-                { "key": "manandtheworld", "text": "Чалавек і свет" },
-                { "key": "arts", "text": "Мастацтва" },
-                { "key": "geography", "text": "Геаграфія" },
-                { "key": "biology", "text": "Біялогія" },
-                { "key": "history", "text": "Гісторыя" },
-                { "key": "educational", "text": "Выхаваўчы занятак" }
-            ],
-            ageGroups: [
-                { "key": "elementary", "text": "Дзеці" },
-                { "key": "primary", "text": "Падлеткі" },
-                { "key": "adults", "text": "Дарослыя" }
-            ],
-            themes: [
-                { "key": "factchecking", "text": "Факт чэкінг" },
-                { "key": "mediagenres", "text": "Жанры медыя" },
-                { "key": "mediasources", "text": "Крыніцы інфармацыі і іх надзейнасць" },
-                { "key": "infosearch", "text": "Пошук інфармацыi" },
-                { "key": "medialanguage", "text": "Мова медыя" },
-                { "key": "mediadecoding", "text": "Дэкадаванне медыятэкстаў" },
-                { "key": "mediacreation", "text": "Стварэнне, апрацоўка, прэзентацыя" },
-                { "key": "pii", "text": "Ахова персанальных дадзеных" },
-                { "key": "security", "text": "Інфармацыйная бяспека" },
-                { "key": "disinformation", "text": "Дэзінфармацыя" },
-                { "key": "infosourcing", "text": "Пошук і збор інфармацыі" }
-            ],
+            disciplines: props.json['all-disciplines'],
+            ageGroups: props.json['all-age-groups'],
+            themes: props.json['all-themes'],
             allSortAndGroup: [
                 { "key": "newest", "text": "Новыя"},
                 { "key": "oldest", "text": "Старыя"},
-                { "key": "bydiscipline", "text": "Па прадметах"},
-                { "key": "byage", "text": "Па мэтавай групе"}
+                { "key": "by discipline", "text": "Па прадметах"},
+                { "key": "by age", "text": "Па мэтавай групе"},
+                { "key": "by theme", "text": "Па тэме"}
             ],
             showFilters: searchParams.get('expand') === 'true',
             filterAgeGroup: searchParams.get('ageGroup'),
             filterDisciplines: searchParams.get('discipline'),
             filterThemes: searchParams.get('theme'),
-            sortAndGroup: "by discipline",
+            sortAndGroup: DEFAULT_SORT,
             foundItems: {
                 "If you see this we probaly screwed": []
             },
@@ -147,7 +127,7 @@ class ExerciseList extends React.Component {
                 props.history.push(`/exercise-list/?${this.getNewSearchUrl('theme', newValue).toString()}`);
                 this.setState({filterThemes: newValue})
             },
-            onSortAndGroupChange: (_,newValue) => {
+            onSortAndGroupChange: (_, newValue) => {
                 this.setState({sortAndGroup: newValue})
             }
         }
@@ -157,8 +137,10 @@ class ExerciseList extends React.Component {
         let url = new URL(window.location)
         let urlParams = new URLSearchParams(url.search);
 
-        urlParams.set(key, value);
-        urlParams.set('expand', true);
+        if (value !== null)
+            urlParams.set(key, value);
+        else
+            urlParams.delete(key);
 
         return urlParams;
     }
@@ -205,12 +187,11 @@ class ExerciseList extends React.Component {
                         this.state.filterAgeGroup, 
                         this.state.filterDisciplines, 
                         this.state.filterThemes, 
-                        this.state.sortAndGroup)}>
+                        this.state.sortAndGroup || DEFAULT_SORT)}>
                 </SearchResult>
             </div>);
     }
 }
-
 
 export default ExerciseList;
 

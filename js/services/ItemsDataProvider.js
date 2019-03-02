@@ -12,12 +12,15 @@ export default class ItemsDataProvider {
         this._filtersToApply = [];
         this._groupingToApply = (data) => ({ "": data });
         this._expandBy = [];
+
+        this._needExpand = false; // need to search by multi-choice fields like theme
     }
 
     newQuery() {
         this._filtersToApply = [];
         this._groupingToApply = (data) => ({ "": data });
         this._expandBy = [];
+        this._needExpand = false;
 
         return this;
     }
@@ -32,6 +35,10 @@ export default class ItemsDataProvider {
             throw Error(`Could not find appropriate filter for ${filterName}`);
 
         this._filtersToApply.push(filterFunc(filterValue));
+
+        if (filterName === 'theme') {
+            this._needExpand = true;
+        }
 
         return this;
     }
@@ -48,6 +55,7 @@ export default class ItemsDataProvider {
         }
 
         if (groupBy == 'by theme') {
+            this._needExpand = true;
             groupingFunc = (data) => _.groupBy(data, item => item.themes);
         }
 
@@ -73,9 +81,8 @@ export default class ItemsDataProvider {
             }
         }
 
-        let needExpand = groupBy == 'by theme';
         // this transformation allow to filter by array-properties like theme
-        let expandedByThemeFunc = needExpand
+        const expandedByThemeFunc = this._needExpand
             ? (data) => data.reduce((prev, next) => [...prev, ...next.themes.map(t => ({...next, themes: t }))], [])
             : (data) => data;
 
@@ -90,7 +97,10 @@ export default class ItemsDataProvider {
         // remove empty sections
 
         let grouped = this._groupingToApply(this._data);
-        let aggregatedFilter = (data) => this._filtersToApply.reduce((accumulator, singleFilter) => accumulator.filter(singleFilter), data);
+        let aggregatedFilter = (data) => 
+            this._filtersToApply.reduce(
+                (accumulator, singleFilter) => accumulator.filter(singleFilter), 
+                data);
 
         return Object.entries(grouped)
             .map(([key, items]) => ([key, aggregatedFilter(items)]))

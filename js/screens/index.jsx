@@ -20,7 +20,7 @@ export default class Index extends React.Component {
                 {this.props.popular.map((i) => <Card className="three columns" key={i.title} title={i.title} description={i.summary} linkTo={`/exercise/${i.id}`}/>)}
             </div>
 
-            <SectionTitle className="row" title="Новыя"></SectionTitle>
+            <SectionTitle className="row">Новыя</SectionTitle>
             <div className="row">
                 {this.props.recent.map((i) => <Card className="three columns" key={i.title} title={i.title} description={i.summary} linkTo={`/exercise/${i.id}`} />)}
             </div>

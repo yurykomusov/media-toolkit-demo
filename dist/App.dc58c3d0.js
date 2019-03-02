@@ -30565,9 +30565,8 @@ function (_React$Component) {
           linkTo: "/exercise/".concat(i.id)
         });
       })), _react.default.createElement(SectionTitle, {
-        className: "row",
-        title: "\u041D\u043E\u0432\u044B\u044F"
-      }), _react.default.createElement("div", {
+        className: "row"
+      }, "\u041D\u043E\u0432\u044B\u044F"), _react.default.createElement("div", {
         className: "row"
       }, this.props.recent.map(function (i) {
         return _react.default.createElement(_card.default, {
@@ -30825,6 +30824,7 @@ function () {
     };
 
     this._expandBy = [];
+    this._needExpand = false; // need to search by multi-choice fields like theme
   }
 
   _createClass(ItemsDataProvider, [{
@@ -30839,6 +30839,7 @@ function () {
       };
 
       this._expandBy = [];
+      this._needExpand = false;
       return this;
     }
   }, {
@@ -30849,6 +30850,10 @@ function () {
       if (!filterFunc) throw Error("Could not find appropriate filter for ".concat(filterName));
 
       this._filtersToApply.push(filterFunc(filterValue));
+
+      if (filterName === 'theme') {
+        this._needExpand = true;
+      }
 
       return this;
     }
@@ -30876,6 +30881,8 @@ function () {
       }
 
       if (groupBy == 'by theme') {
+        this._needExpand = true;
+
         groupingFunc = function groupingFunc(data) {
           return _.groupBy(data, function (item) {
             return item.themes;
@@ -30914,11 +30921,10 @@ function () {
             return 'From Oldest To Newest';
           });
         };
-      }
+      } // this transformation allow to filter by array-properties like theme
 
-      var needExpand = groupBy == 'by theme'; // this transformation allow to filter by array-properties like theme
 
-      var expandedByThemeFunc = needExpand ? function (data) {
+      var expandedByThemeFunc = this._needExpand ? function (data) {
         return data.reduce(function (prev, next) {
           return [].concat(_toConsumableArray(prev), _toConsumableArray(next.themes.map(function (t) {
             return _objectSpread({}, next, {
@@ -31023,6 +31029,8 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var DEFAULT_SORT = 'by discipline';
 
 var FilterList =
 /*#__PURE__*/
@@ -31163,69 +31171,9 @@ function (_React$Component2) {
     _this3.itemsDataProvider = new _ItemsDataProvider.default(props.json['items']);
     var searchParams = new URLSearchParams(props.location.search);
     _this3.state = {
-      disciplines: [{
-        "key": "manandtheworld",
-        "text": "Чалавек і свет"
-      }, {
-        "key": "arts",
-        "text": "Мастацтва"
-      }, {
-        "key": "geography",
-        "text": "Геаграфія"
-      }, {
-        "key": "biology",
-        "text": "Біялогія"
-      }, {
-        "key": "history",
-        "text": "Гісторыя"
-      }, {
-        "key": "educational",
-        "text": "Выхаваўчы занятак"
-      }],
-      ageGroups: [{
-        "key": "elementary",
-        "text": "Дзеці"
-      }, {
-        "key": "primary",
-        "text": "Падлеткі"
-      }, {
-        "key": "adults",
-        "text": "Дарослыя"
-      }],
-      themes: [{
-        "key": "factchecking",
-        "text": "Факт чэкінг"
-      }, {
-        "key": "mediagenres",
-        "text": "Жанры медыя"
-      }, {
-        "key": "mediasources",
-        "text": "Крыніцы інфармацыі і іх надзейнасць"
-      }, {
-        "key": "infosearch",
-        "text": "Пошук інфармацыi"
-      }, {
-        "key": "medialanguage",
-        "text": "Мова медыя"
-      }, {
-        "key": "mediadecoding",
-        "text": "Дэкадаванне медыятэкстаў"
-      }, {
-        "key": "mediacreation",
-        "text": "Стварэнне, апрацоўка, прэзентацыя"
-      }, {
-        "key": "pii",
-        "text": "Ахова персанальных дадзеных"
-      }, {
-        "key": "security",
-        "text": "Інфармацыйная бяспека"
-      }, {
-        "key": "disinformation",
-        "text": "Дэзінфармацыя"
-      }, {
-        "key": "infosourcing",
-        "text": "Пошук і збор інфармацыі"
-      }],
+      disciplines: props.json['all-disciplines'],
+      ageGroups: props.json['all-age-groups'],
+      themes: props.json['all-themes'],
       allSortAndGroup: [{
         "key": "newest",
         "text": "Новыя"
@@ -31233,17 +31181,20 @@ function (_React$Component2) {
         "key": "oldest",
         "text": "Старыя"
       }, {
-        "key": "bydiscipline",
+        "key": "by discipline",
         "text": "Па прадметах"
       }, {
-        "key": "byage",
+        "key": "by age",
         "text": "Па мэтавай групе"
+      }, {
+        "key": "by theme",
+        "text": "Па тэме"
       }],
       showFilters: searchParams.get('expand') === 'true',
       filterAgeGroup: searchParams.get('ageGroup'),
       filterDisciplines: searchParams.get('discipline'),
       filterThemes: searchParams.get('theme'),
-      sortAndGroup: "by discipline",
+      sortAndGroup: DEFAULT_SORT,
       foundItems: {
         "If you see this we probaly screwed": []
       },
@@ -31282,8 +31233,7 @@ function (_React$Component2) {
     value: function getNewSearchUrl(key, value) {
       var url = new URL(window.location);
       var urlParams = new URLSearchParams(url.search);
-      urlParams.set(key, value);
-      urlParams.set('expand', true);
+      if (value !== null) urlParams.set(key, value);else urlParams.delete(key);
       return urlParams;
     }
   }, {
@@ -31323,7 +31273,7 @@ function (_React$Component2) {
           });
         }
       }, "\u0424\u0456\u043B\u044C\u0442\u0440\u044B"), this.state.showFilters ? _react.default.createElement(FilterBox, this.state) : null, _react.default.createElement(SearchResult, {
-        foundItems: this.getSearchResult(this.state.filterAgeGroup, this.state.filterDisciplines, this.state.filterThemes, this.state.sortAndGroup)
+        foundItems: this.getSearchResult(this.state.filterAgeGroup, this.state.filterDisciplines, this.state.filterThemes, this.state.sortAndGroup || DEFAULT_SORT)
       }));
     }
   }]);
@@ -31597,7 +31547,7 @@ function (_React$Component2) {
 }(_react.default.Component);
 
 _reactDom.default.render(_react.default.createElement(App, null), document.getElementById('app'));
-},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","react-router-dom":"node_modules/react-router-dom/es/index.js","./shared-components/spinner.jsx":"js/shared-components/spinner.jsx","./screens/index.jsx":"js/screens/index.jsx","./screens/exercise.jsx":"js/screens/exercise.jsx","./screens/exerciseList.jsx":"js/screens/exerciseList.jsx","./controllers/indexController.js":"js/controllers/indexController.js","../css/index.scss":"css/index.scss","../img/logo.png":"img/logo.png"}],"../../../AppData/Roaming/npm/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","react-router-dom":"node_modules/react-router-dom/es/index.js","./shared-components/spinner.jsx":"js/shared-components/spinner.jsx","./screens/index.jsx":"js/screens/index.jsx","./screens/exercise.jsx":"js/screens/exercise.jsx","./screens/exerciseList.jsx":"js/screens/exerciseList.jsx","./controllers/indexController.js":"js/controllers/indexController.js","../css/index.scss":"css/index.scss","../img/logo.png":"img/logo.png"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -31624,7 +31574,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50325" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55553" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
@@ -31766,5 +31716,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},["../../../AppData/Roaming/npm/node_modules/parcel/src/builtins/hmr-runtime.js","js/App.js"], null)
+},{}]},{},["node_modules/parcel-bundler/src/builtins/hmr-runtime.js","js/App.js"], null)
 //# sourceMappingURL=/App.dc58c3d0.map
