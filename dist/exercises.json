@@ -322,7 +322,7 @@
         { "key": "adults", "text": "Дарослыя" }
     ],
     "all-themes": [
-        { "key": "factchecking", "text": "Факт чэкінг" },
+        { "key": "factchecking", "text": "Фактчэкінг" },
         { "key": "mediagenres", "text": "Жанры медыя" },
         { "key": "mediasources", "text": "Крыніцы інфармацыі і іх надзейнасць" },
         { "key": "infosearch", "text": "Пошук інфармацыi" },

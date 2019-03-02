@@ -3,6 +3,19 @@ import ReactDOM from 'react-dom'
 import Card from '../shared-components/card.jsx'
 import userpic from '../../img/userpic.jpg'
 
+const getAgeGroupTitle = (ageGroupKey) => {
+    switch (ageGroupKey) {
+        case "elementary": 
+            return "Дзеці";
+        case "primary": 
+            return "Падлеткі";
+        case "adults": 
+            return "Дарослыя";
+        default:
+            return "Усе";
+    }
+}
+
 const Exercise = ({ exercise }) => (
     <div className="row">
             <div className="eight columns">
@@ -25,7 +38,7 @@ const Exercise = ({ exercise }) => (
                         <div className="four columns">
                             <div>Мэтавая група</div>
                             <div>icon 3</div>
-                            <div>Падлеткі</div>                             
+                            <div>{getAgeGroupTitle(exercise.ageRange)}</div>                             
                         </div>
                     </div>
 

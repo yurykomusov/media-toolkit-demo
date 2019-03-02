@@ -2242,7 +2242,7 @@ if ("development" === 'production') {
 }
 },{"./cjs/react.development.js":"node_modules/react/cjs/react.development.js"}],"node_modules/scheduler/cjs/scheduler.development.js":[function(require,module,exports) {
 var global = arguments[3];
-/** @license React v0.13.2
+/** @license React v0.13.3
  * scheduler.development.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -2962,7 +2962,7 @@ if ("development" === 'production') {
   module.exports = require('./cjs/scheduler.development.js');
 }
 },{"./cjs/scheduler.development.js":"node_modules/scheduler/cjs/scheduler.development.js"}],"node_modules/scheduler/cjs/scheduler-tracing.development.js":[function(require,module,exports) {
-/** @license React v0.13.2
+/** @license React v0.13.3
  * scheduler-tracing.development.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -3358,7 +3358,7 @@ if ("development" === 'production') {
   module.exports = require('./cjs/scheduler-tracing.development.js');
 }
 },{"./cjs/scheduler-tracing.development.js":"node_modules/scheduler/cjs/scheduler-tracing.development.js"}],"node_modules/react-dom/cjs/react-dom.development.js":[function(require,module,exports) {
-/** @license React v16.8.2
+/** @license React v16.8.3
  * react-dom.development.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -16952,6 +16952,8 @@ if ("development" !== "production") {
               hook.baseState = newState;
             }
 
+            queue.eagerReducer = reducer;
+            queue.eagerState = newState;
             return [newState, _dispatch];
           }
         }
@@ -24956,7 +24958,7 @@ if ("development" !== "production") {
     } // TODO: this is special because it gets imported during build.
 
 
-    var ReactVersion = '16.8.2'; // TODO: This type is shared between the reconciler and ReactDOM, but will
+    var ReactVersion = '16.8.3'; // TODO: This type is shared between the reconciler and ReactDOM, but will
     // eventually be lifted out to the renderer.
 
     var ReactCurrentOwner = ReactSharedInternals.ReactCurrentOwner;
@@ -30350,7 +30352,7 @@ var _matchPath2 = _interopRequireDefault(require("./matchPath"));
 var _withRouter2 = _interopRequireDefault(require("./withRouter"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./BrowserRouter":"node_modules/react-router-dom/es/BrowserRouter.js","./HashRouter":"node_modules/react-router-dom/es/HashRouter.js","./Link":"node_modules/react-router-dom/es/Link.js","./MemoryRouter":"node_modules/react-router-dom/es/MemoryRouter.js","./NavLink":"node_modules/react-router-dom/es/NavLink.js","./Prompt":"node_modules/react-router-dom/es/Prompt.js","./Redirect":"node_modules/react-router-dom/es/Redirect.js","./Route":"node_modules/react-router-dom/es/Route.js","./Router":"node_modules/react-router-dom/es/Router.js","./StaticRouter":"node_modules/react-router-dom/es/StaticRouter.js","./Switch":"node_modules/react-router-dom/es/Switch.js","./generatePath":"node_modules/react-router-dom/es/generatePath.js","./matchPath":"node_modules/react-router-dom/es/matchPath.js","./withRouter":"node_modules/react-router-dom/es/withRouter.js"}],"node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"./BrowserRouter":"node_modules/react-router-dom/es/BrowserRouter.js","./HashRouter":"node_modules/react-router-dom/es/HashRouter.js","./Link":"node_modules/react-router-dom/es/Link.js","./MemoryRouter":"node_modules/react-router-dom/es/MemoryRouter.js","./NavLink":"node_modules/react-router-dom/es/NavLink.js","./Prompt":"node_modules/react-router-dom/es/Prompt.js","./Redirect":"node_modules/react-router-dom/es/Redirect.js","./Route":"node_modules/react-router-dom/es/Route.js","./Router":"node_modules/react-router-dom/es/Router.js","./StaticRouter":"node_modules/react-router-dom/es/StaticRouter.js","./Switch":"node_modules/react-router-dom/es/Switch.js","./generatePath":"node_modules/react-router-dom/es/generatePath.js","./matchPath":"node_modules/react-router-dom/es/matchPath.js","./withRouter":"node_modules/react-router-dom/es/withRouter.js"}],"../../../AppData/Roaming/npm/node_modules/parcel/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -30382,7 +30384,7 @@ function getBaseURL(url) {
 
 exports.getBundleURL = getBundleURLCached;
 exports.getBaseURL = getBaseURL;
-},{}],"node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+},{}],"../../../AppData/Roaming/npm/node_modules/parcel/src/builtins/css-loader.js":[function(require,module,exports) {
 var bundle = require('./bundle-url');
 
 function updateLink(link) {
@@ -30417,12 +30419,12 @@ function reloadCSS() {
 }
 
 module.exports = reloadCSS;
-},{"./bundle-url":"node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"js/shared-components/spinner.css":[function(require,module,exports) {
+},{"./bundle-url":"../../../AppData/Roaming/npm/node_modules/parcel/src/builtins/bundle-url.js"}],"js/shared-components/spinner.css":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"js/shared-components/spinner.jsx":[function(require,module,exports) {
+},{"_css_loader":"../../../AppData/Roaming/npm/node_modules/parcel/src/builtins/css-loader.js"}],"js/shared-components/spinner.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -30451,7 +30453,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"js/shared-components/card.jsx":[function(require,module,exports) {
+},{"_css_loader":"../../../AppData/Roaming/npm/node_modules/parcel/src/builtins/css-loader.js"}],"js/shared-components/card.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -30655,6 +30657,22 @@ var _userpic = _interopRequireDefault(require("../../img/userpic.jpg"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var getAgeGroupTitle = function getAgeGroupTitle(ageGroupKey) {
+  switch (ageGroupKey) {
+    case "elementary":
+      return "Дзеці";
+
+    case "primary":
+      return "Падлеткі";
+
+    case "adults":
+      return "Дарослыя";
+
+    default:
+      return "Усе";
+  }
+};
+
 var Exercise = function Exercise(_ref) {
   var exercise = _ref.exercise;
   return _react.default.createElement("div", {
@@ -30674,7 +30692,7 @@ var Exercise = function Exercise(_ref) {
     className: "four columns"
   }, _react.default.createElement("div", null, "\u041F\u0440\u0430\u0434\u043C\u0435\u0442"), _react.default.createElement("div", null, "icon 2"), _react.default.createElement("div", null, exercise.discipline)), _react.default.createElement("div", {
     className: "four columns"
-  }, _react.default.createElement("div", null, "\u041C\u044D\u0442\u0430\u0432\u0430\u044F \u0433\u0440\u0443\u043F\u0430"), _react.default.createElement("div", null, "icon 3"), _react.default.createElement("div", null, "\u041F\u0430\u0434\u043B\u0435\u0442\u043A\u0456")))), _react.default.createElement("div", {
+  }, _react.default.createElement("div", null, "\u041C\u044D\u0442\u0430\u0432\u0430\u044F \u0433\u0440\u0443\u043F\u0430"), _react.default.createElement("div", null, "icon 3"), _react.default.createElement("div", null, getAgeGroupTitle(exercise.ageRange))))), _react.default.createElement("div", {
     className: "tab tab-main"
   }, exercise.text.map(function (line, index) {
     return _react.default.createElement("p", {
@@ -31388,7 +31406,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"img/logo.png":[function(require,module,exports) {
+},{"_css_loader":"../../../AppData/Roaming/npm/node_modules/parcel/src/builtins/css-loader.js"}],"img/logo.png":[function(require,module,exports) {
 module.exports = "/logo.cecc779a.png";
 },{}],"js/App.js":[function(require,module,exports) {
 "use strict";
@@ -31579,7 +31597,7 @@ function (_React$Component2) {
 }(_react.default.Component);
 
 _reactDom.default.render(_react.default.createElement(App, null), document.getElementById('app'));
-},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","react-router-dom":"node_modules/react-router-dom/es/index.js","./shared-components/spinner.jsx":"js/shared-components/spinner.jsx","./screens/index.jsx":"js/screens/index.jsx","./screens/exercise.jsx":"js/screens/exercise.jsx","./screens/exerciseList.jsx":"js/screens/exerciseList.jsx","./controllers/indexController.js":"js/controllers/indexController.js","../css/index.scss":"css/index.scss","../img/logo.png":"img/logo.png"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","react-router-dom":"node_modules/react-router-dom/es/index.js","./shared-components/spinner.jsx":"js/shared-components/spinner.jsx","./screens/index.jsx":"js/screens/index.jsx","./screens/exercise.jsx":"js/screens/exercise.jsx","./screens/exerciseList.jsx":"js/screens/exerciseList.jsx","./controllers/indexController.js":"js/controllers/indexController.js","../css/index.scss":"css/index.scss","../img/logo.png":"img/logo.png"}],"../../../AppData/Roaming/npm/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -31606,7 +31624,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55039" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50325" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
@@ -31748,5 +31766,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},["node_modules/parcel-bundler/src/builtins/hmr-runtime.js","js/App.js"], null)
+},{}]},{},["../../../AppData/Roaming/npm/node_modules/parcel/src/builtins/hmr-runtime.js","js/App.js"], null)
 //# sourceMappingURL=/App.dc58c3d0.map
