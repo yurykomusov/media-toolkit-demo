@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Link } from 'react-router-dom'
+import './card.scss'
 
 export default function Card(props) {
     if (props.description) {

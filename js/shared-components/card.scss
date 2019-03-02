@@ -1,0 +1,48 @@
+@import '../../css/colors';
+
+.pad {
+    height: 200px;
+    background-color: white;
+    text-align: center;
+    overflow: hidden;
+
+    line-height: 1.25;
+    h4 {
+        line-height: 1;
+    }
+}
+
+.pad .image-container {
+    height: 50%;
+    background-color: pink;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s linear;
+}
+
+.pad-orange .image-container{
+    background-color: $color-primary-orange;
+}
+
+.pad-green .image-container {
+    background-color: $color-primary-green;
+}
+
+.pad-blue .image-container {
+    background-color: $color-primary-blue;
+}
+
+.pad-brown .image-container {
+    background-color: $color-secondary-brown;
+}
+
+
+.pad .image-container:hover {
+    background-color: plum;
+}
+
+.pad .image-container-full {
+    height: 100%;
+}

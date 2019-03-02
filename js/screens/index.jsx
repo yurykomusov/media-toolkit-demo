@@ -34,10 +34,10 @@ export default class Index extends React.Component {
 
             <SectionTitle className="row">Прадметы</SectionTitle>
             <div className="row">
-                <Card className="three columns" title="Біялогія" linkTo="/exercise-list/?discipline=biology"/>
-                <Card className="three columns" title="Геаграфія" linkTo="/exercise-list/?discipline=geography"/>
-                <Card className="three columns" title="Гісторыя і грамадазнаўства" linkTo="/exercise-list/?discipline=history"/>
-                <Card className="three columns" title="Чалавек і свет" linkTo="/exercise-list/?discipline=manandtheworld"/>
+                <Card className="three columns pad-orange" title="Біялогія" linkTo="/exercise-list/?discipline=biology"/>
+                <Card className="three columns pad-blue" title="Геаграфія" linkTo="/exercise-list/?discipline=geography"/>
+                <Card className="three columns pad-brown" title="Гісторыя і грамадазнаўства" linkTo="/exercise-list/?discipline=history"/>
+                <Card className="three columns pad-green" title="Чалавек і свет" linkTo="/exercise-list/?discipline=manandtheworld"/>
             </div>
 
             <SectionTitle className="row">Медыя кампетэнцыі</SectionTitle>

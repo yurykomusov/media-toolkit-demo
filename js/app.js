@@ -7,6 +7,11 @@ import Index from  './screens/index.jsx'
 import Exercise from './screens/exercise.jsx'
 import ExerciseList from './screens/exerciseList.jsx'
 import getIndexModel  from './controllers/indexController.js'
+
+import '../css/index.scss'
+
+import logo from '../img/logo.png'
+
 function withSpinner(WrappedComponent) {
     return class extends React.Component {
         constructor(props) {
@@ -69,7 +74,7 @@ class App extends React.Component {
             <Router basename={this.basename}>
                 <div>
                     <header>
-                        Nastaunik.info - Медыя Тулкіт
+                        <Link to="/">Nastaunik.info - Медыя Тулкіт</Link>
                         <nav>
                             <Link to="/">Галоўная</Link>
                             <Link to="/authors">Аўтары</Link>
@@ -79,8 +84,8 @@ class App extends React.Component {
                     </header>
                     <ContentContainerWithSpinner isLoading={this.state.isLoading}>
                         <Route exact path="/" component={() => <Index {...this.state.indexViewModel}/>}></Route>
-                        <Route path="/exercise-list" component={(props) => <ExerciseList json={this.state.json} location={props.location} isLoading={this.state.isLoading}></ExerciseList>}></Route>
-                        <Route path="/exercise/:id" component={Exercise}></Route>
+                        <Route path="/exercise-list" component={(props) => <ExerciseList json={this.state.json} {...props}></ExerciseList>}></Route>
+                        <Route path="/exercise/:id" component={(props) => <Exercise {...props} exercise={this.state.json.items.filter((item) => item.id === props.match.params.id)[0]} ></Exercise>}></Route>
                         <Route path="/authors" component={() => <div>Site is under construction. Please be patient</div>}></Route>
                         <Route path="/about" component={() => <div>Site is under construction. Please be patient</div>}></Route>
                         <Route path="/help" component={() => <div>Site is under construction. Please be patient</div>}></Route>

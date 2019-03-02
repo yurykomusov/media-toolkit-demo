@@ -14,6 +14,14 @@ export default class ItemsDataProvider {
         this._expandBy = [];
     }
 
+    newQuery() {
+        this._filtersToApply = [];
+        this._groupingToApply = (data) => ({ "": data });
+        this._expandBy = [];
+
+        return this;
+    }
+
     applyFilter(filterName, filterValue) {
         if (!filterValue || filterValue == '')
             return this;

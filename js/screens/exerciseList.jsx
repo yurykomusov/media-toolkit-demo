@@ -35,12 +35,13 @@ class FilterList extends React.Component {
     onItemClick(e) {
         let selectedKey = e.currentTarget.dataset.key;
         let currentKey = this.state.selected;
-        if (selectedKey !== currentKey) {
-            this.setState({ selected: selectedKey});
 
-            if (this.props.handleChange !== null) {
-                this.props.handleChange(currentKey, selectedKey);
-            }
+        let newKey = selectedKey === currentKey ? null : selectedKey;
+
+        this.setState({ selected: newKey});
+
+        if (this.props.handleChange !== null) {
+            this.props.handleChange(currentKey, newKey);
         }
     }
 }
@@ -132,27 +133,22 @@ class ExerciseList extends React.Component {
             filterThemes: searchParams.get('theme'),
             sortAndGroup: "by discipline",
             foundItems: {
-                "Nothing was found": []
+                "If you see this we probaly screwed": []
             },
             onAgeGroupFilterChange: (_, newValue) => {
-                window.location = `/exercise-list/?${this.getNewSearchUrl('ageGroup', newValue).toString()}`;
-                
-                // this.setState({filterAgeGroup: newValue})                
-                // this.setState({foundItems: this.getSearchResult()});
+                props.history.push(`/exercise-list/?${this.getNewSearchUrl('ageGroup', newValue).toString()}`)
+                this.setState({filterAgeGroup: newValue})
             },
             onDisciplineFilterChange: (_, newValue) => {
-                window.location = `/exercise-list/?${this.getNewSearchUrl('discipline', newValue).toString()}`;
-                // this.setState({filterDisciplines: newValue})
-                // this.setState({foundItems: this.getSearchResult()});
+                props.history.push(`/exercise-list/?${this.getNewSearchUrl('discipline', newValue).toString()}`)
+                this.setState({filterDisciplines: newValue})
             },
             onThemesFilterChange: (_, newValue) => {
-                window.location = `/exercise-list/?${this.getNewSearchUrl('theme', newValue).toString()}`;
-                // this.setState({filterThemes: newValue})
-                // this.setState({foundItems: this.getSearchResult()});
+                props.history.push(`/exercise-list/?${this.getNewSearchUrl('theme', newValue).toString()}`);
+                this.setState({filterThemes: newValue})
             },
             onSortAndGroupChange: (_,newValue) => {
-                // this.setState({sortAndGroup: newValue})
-                // this.setState({foundItems: this.getSearchResult()});
+                this.setState({sortAndGroup: newValue})
             }
         }
     }
@@ -167,20 +163,17 @@ class ExerciseList extends React.Component {
         return urlParams;
     }
 
-    componentDidMount() {
-        this.setState({foundItems: this.getSearchResult()});
-    }
-
-    getSearchResult() {
+    getSearchResult(filterAgeGroup, filterDisciplines, filterThemes, sortAndGroup) {
         let searchResult = this.itemsDataProvider
-            .applyFilter('ageGroup', this.state.filterAgeGroup)
-            .applyFilter('discipline', this.state.filterDisciplines)
-            .applyFilter('theme', this.state.filterThemes)
-            .applyGroupingAndSort(this.state.sortAndGroup)
+            .newQuery()
+            .applyFilter('ageGroup', filterAgeGroup)
+            .applyFilter('discipline', filterDisciplines)
+            .applyFilter('theme', filterThemes)
+            .applyGroupingAndSort(sortAndGroup)
             .executeQuery();
 
         return Object.keys(searchResult).reduce((accumulator, groupKey) => 
-            ({ ...accumulator, [this.getGroupTitleByKey(groupKey, this.state.sortAndGroup)]: searchResult[groupKey]}), {});
+            ({ ...accumulator, [this.getGroupTitleByKey(groupKey, sortAndGroup)]: searchResult[groupKey]}), {});
     }
 
     getGroupTitleByKey(key, groupBy) {
@@ -207,7 +200,13 @@ class ExerciseList extends React.Component {
                 {this.state.showFilters
                     ? <FilterBox {...this.state}></FilterBox>
                     : null}
-                <SearchResult foundItems={this.state.foundItems}></SearchResult>
+                <SearchResult foundItems={
+                    this.getSearchResult(
+                        this.state.filterAgeGroup, 
+                        this.state.filterDisciplines, 
+                        this.state.filterThemes, 
+                        this.state.sortAndGroup)}>
+                </SearchResult>
             </div>);
     }
 }
