@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "parcel index.html",
-    "ghpages": "parcel build index.html --public-url /media-toolkit-demo/dist`"
+    "ghpages": "parcel build index.html --public-url /media-toolkit-demo/dist"
   },
   "author": "Y. Komusau",
   "license": "ISC",

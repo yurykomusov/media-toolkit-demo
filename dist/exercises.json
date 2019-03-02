@@ -333,5 +333,11 @@
         { "key": "security", "text": "Інфармацыйная бяспека" },
         { "key": "disinformation", "text": "Дэзінфармацыя" },
         { "key": "infosourcing", "text": "Пошук і збор інфармацыі" }
+    ],
+    "all-competentions": [
+        { "key": "reliablity", "text": "Доступ і надзейнасць крыніц"},
+        { "key": "analisys", "text": "Аналіз медыя"},
+        { "key": "assessment", "text": "Аценка медыя"},
+        { "key": "creative", "text": "Стварэнне і карыстанне медыя прасторай"}
     ]
 }
