@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Card from '../shared-components/card.jsx'
-import ItemsDataProvider from '../ItemsDataProvider.js';
+import ItemsDataProvider from '../services/ItemsDataProvider.js';
 import * as _ from '../utils.js';
 
 class FilterList extends React.Component {

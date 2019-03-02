@@ -1,48 +1,89 @@
-import Router from './custom-elements/router.js'
-import Spinner from './custom-elements/spinner.js'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-import indexView from './views/indexView.js'
-import excercisesView from './views/excercisesView.js'
+import Spinner from './shared-components/spinner.jsx'
+import Index from  './screens/index.jsx'
+import Exercise from './screens/exercise.jsx'
+import ExerciseList from './screens/exerciseList.jsx'
+import getIndexModel  from './controllers/indexController.js'
 
-import getIndexModel from './controllers/indexController.js'
-import getExcercisesModel from './controllers/excercisesController.js';
 
-class App {
-    constructor($container) {
-        this.$container = $container;
-        this.$root = document.createElement('div');
-        this.$root.innerHTML = `<simple-router><custom-spinner/></simple-router>`;        
-        this.$router = this.$root.querySelector('simple-router');
-        
-        fetch('data/exercises.json')
-            .then((response) => response.json())
-            .then((json) => {
-                setTimeout(() => this.$router.goTo('default'), 1000); // todo: remove timeout
-                
-                let indexModel = getIndexModel(json);        
-                let excercisesModel = getExcercisesModel(json);
-
-                this.$router.mapRoute('default', indexView(indexModel));
-                this.$router.mapRoute('/', indexView(indexModel));
-                this.$router.mapRoute('/exercises', excercisesView(excercisesModel));
-                this.$router.mapRoute('/details', `<div>You gonna see some details here!</div>`);        
-            })
-
-        let refreshNavigation = () => {
-            Array.from(this.$root.querySelectorAll('[data-route]') || []).forEach($el => this.$router.addNavigation($el));
-            Array.from(this.$root.querySelectorAll('a') || []).forEach($el => this.$router.addNavigation($el));
+function withSpinner(WrappedComponent) {
+    return class extends React.Component {
+        constructor(props) {
+            super(props);
         }
-        
-        refreshNavigation();
 
-        this.$router.addEventListener('navigationOccured', refreshNavigation);
-    }
-
-    render() {        
-        this.$container.appendChild(this.$root);
+        render() {
+            if (this.props.isLoading)
+                return <Spinner></Spinner>
+            else 
+                return <WrappedComponent {...this.props}></WrappedComponent>
+        }
     }
 }
 
-let app = new App(document.querySelector('#app'));
+const ContentContainer = (props) => <div className="container">{props.children}</div>
+const ContentContainerWithSpinner = withSpinner(ContentContainer);
 
-app.render();
+class App extends React.Component {
+    constructor(props) {
+        super(props);
+
+        let self = this;
+        this.state = {
+            items: [],
+            currentScreen: "index",
+            currentExerciseId: null,
+            indexViewModel: {
+                recent: [],
+                popular: [],
+                disciplines: [],
+                ageGroups: [],
+                mediaCompetences: []
+            },
+            isLoading: true,
+            json: null
+        };
+
+        fetch('/exercises.json')
+            .then(response => response.json())
+            .then(json => {
+                setTimeout(() => {
+                    self.setState({
+                        indexViewModel: getIndexModel(json),
+                        isLoading: false,
+                        json: json
+                    });    
+                }, 2000);
+            });
+    }
+
+    render() {
+        return (
+            <Router>
+                <div>
+                    <header>
+                        Nastaunik.info - Медыя Тулкіт
+                        <nav>
+                            <Link to="/">Галоўная</Link>
+                            <Link to="/authors">Аўтары</Link>
+                            <Link to="/about">А праекце</Link>
+                            <Link to="/help">Падтрымаць</Link>
+                        </nav>
+                    </header>
+                    <ContentContainerWithSpinner isLoading={this.state.isLoading}>
+                        <Route exact path="/" component={() => <Index {...this.state.indexViewModel}/>}></Route>
+                        <Route path="/exercise-list" component={(props) => <ExerciseList json={this.state.json} location={props.location} isLoading={this.state.isLoading}></ExerciseList>}></Route>
+                        <Route path="/exercise/:id" component={Exercise}></Route>
+                        <Route path="/authors" component={() => <div>Site is under construction. Please be patient</div>}></Route>
+                        <Route path="/about" component={() => <div>Site is under construction. Please be patient</div>}></Route>
+                        <Route path="/help" component={() => <div>Site is under construction. Please be patient</div>}></Route>
+                    </ContentContainerWithSpinner>
+                </div>
+            </Router>);
+    }
+}
+
+ReactDOM.render(<App></App>, document.getElementById('app'));

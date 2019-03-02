@@ -1,4 +1,4 @@
-import * as _ from './utils.js';
+import * as _ from '../utils.js';
 
 export default class ItemsDataProvider {
     constructor(jsonData) {

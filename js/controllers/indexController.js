@@ -1,4 +1,4 @@
-import ItemsDataProvider from '../ItemsDataProvider.js';
+import ItemsDataProvider from '../services/ItemsDataProvider.js';
 
 export default function getIndexModel(json) {
     let itemsDataProvider = new ItemsDataProvider(json['items']);
