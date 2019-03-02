@@ -7,8 +7,6 @@ import Index from  './screens/index.jsx'
 import Exercise from './screens/exercise.jsx'
 import ExerciseList from './screens/exerciseList.jsx'
 import getIndexModel  from './controllers/indexController.js'
-
-
 function withSpinner(WrappedComponent) {
     return class extends React.Component {
         constructor(props) {
@@ -31,6 +29,12 @@ class App extends React.Component {
     constructor(props) {
         super(props);
 
+        if (process.env.NODE_ENV == 'production') {
+            this.basename = '/media-toolkit-demo/dist';
+        } else {
+            this.basename = ''
+        }
+
         let self = this;
         this.state = {
             items: [],
@@ -47,7 +51,7 @@ class App extends React.Component {
             json: null
         };
 
-        fetch('exercises.json')
+        fetch(this.basename + '/exercises.json')
             .then(response => response.json())
             .then(json => {
                 setTimeout(() => {
@@ -62,7 +66,7 @@ class App extends React.Component {
 
     render() {
         return (
-            <Router>
+            <Router basename={this.basename}>
                 <div>
                     <header>
                         Nastaunik.info - Медыя Тулкіт
