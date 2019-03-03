@@ -72,7 +72,7 @@ const Exercise = ({exercise, json}) => (
                 </div>
                 <div className="tab tab-suggestion">
                     <h3>Парады</h3>
-                    No suggestions yet:(
+                    {exercise.tips}
                 </div>
             </div>
         </div>

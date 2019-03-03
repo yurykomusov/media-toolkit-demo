@@ -39885,7 +39885,7 @@ var Exercise = function Exercise(_ref) {
     }, "#" + method));
   }))), _react.default.createElement("div", {
     className: "tab tab-suggestion"
-  }, _react.default.createElement("h3", null, "\u041F\u0430\u0440\u0430\u0434\u044B"), "No suggestions yet:(")));
+  }, _react.default.createElement("h3", null, "\u041F\u0430\u0440\u0430\u0434\u044B"), exercise.tips)));
 };
 
 var _default = Exercise;
@@ -40512,7 +40512,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50263" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54211" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
