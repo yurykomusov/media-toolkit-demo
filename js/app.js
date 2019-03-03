@@ -12,6 +12,7 @@ import getIndexModel  from './controllers/indexController.js'
 
 import logo from '../img/logo.png'
 import '../css/index.scss'
+import '../css/react-slick-custom.scss'
 
 function withSpinner(WrappedComponent) {
     return class extends React.Component {

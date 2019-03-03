@@ -34811,9 +34811,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 var SectionTitle = function SectionTitle(props) {
   return _react.default.createElement("div", null, _react.default.createElement("div", {
     className: "ten columns"
-  }, _react.default.createElement("h4", null, props.children)), _react.default.createElement("div", {
-    className: "two columns"
-  }, _react.default.createElement("button", null, "\u043F\u0430\u043A\u0430\u0437\u0430\u0446\u044C \u0443\u0441\u0435")));
+  }, _react.default.createElement("h4", null, props.children)));
 };
 
 var Index =
@@ -34827,6 +34825,13 @@ function (_React$Component) {
     _classCallCheck(this, Index);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Index).call(this, props));
+    _this.disciplinesSliderSettings = {
+      dots: false,
+      infinite: false,
+      speed: 500,
+      slidesToShow: 4,
+      slidesToScroll: 1
+    };
     _this.sliderSettings = {
       dots: false,
       infinite: false,
@@ -34838,8 +34843,16 @@ function (_React$Component) {
   }
 
   _createClass(Index, [{
+    key: "getNextColor",
+    value: function getNextColor(index) {
+      var classNames = ["pad-orange", "pad-green", "pad-blue", "pad-brown"];
+      return classNames[index % classNames.length];
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       return _react.default.createElement("div", null, _react.default.createElement("h4", null, "\u041F\u0430\u043F\u0443\u043B\u044F\u0440\u043D\u044B\u044F"), _react.default.createElement("div", {
         className: "row"
       }, _react.default.createElement(_reactSlick.default, this.sliderSettings, this.props.popular.map(function (i) {
@@ -34876,29 +34889,14 @@ function (_React$Component) {
         className: "four columns",
         title: "\u0414\u0430\u0440\u043E\u0441\u043B\u044B\u044F",
         linkTo: "/exercise-list/?ageGroup=adults"
-      })), _react.default.createElement(SectionTitle, {
-        className: "row"
-      }, "\u041F\u0440\u0430\u0434\u043C\u0435\u0442\u044B"), _react.default.createElement("div", {
-        className: "row"
-      }, _react.default.createElement(_card.default, {
-        className: "three columns pad-orange",
-        title: "\u0411\u0456\u044F\u043B\u043E\u0433\u0456\u044F",
-        linkTo: "/exercise-list/?discipline=biology"
-      }), _react.default.createElement(_card.default, {
-        className: "three columns pad-blue",
-        title: "\u0413\u0435\u0430\u0433\u0440\u0430\u0444\u0456\u044F",
-        linkTo: "/exercise-list/?discipline=geography"
-      }), _react.default.createElement(_card.default, {
-        className: "three columns pad-brown",
-        title: "\u0413\u0456\u0441\u0442\u043E\u0440\u044B\u044F \u0456 \u0433\u0440\u0430\u043C\u0430\u0434\u0430\u0437\u043D\u0430\u045E\u0441\u0442\u0432\u0430",
-        linkTo: "/exercise-list/?discipline=history"
-      }), _react.default.createElement(_card.default, {
-        className: "three columns pad-green",
-        title: "\u0427\u0430\u043B\u0430\u0432\u0435\u043A \u0456 \u0441\u0432\u0435\u0442",
-        linkTo: "/exercise-list/?discipline=manandtheworld"
-      })), _react.default.createElement(SectionTitle, {
-        className: "row"
-      }, "\u041C\u0435\u0434\u044B\u044F \u043A\u0430\u043C\u043F\u0435\u0442\u044D\u043D\u0446\u044B\u0456"), _react.default.createElement("div", {
+      })), _react.default.createElement("h4", null, "\u041F\u0440\u0430\u0434\u043C\u0435\u0442\u044B"), _react.default.createElement(_reactSlick.default, this.disciplinesSliderSettings, this.props.disciplines.map(function (discipline, index) {
+        return _react.default.createElement(_card.default, {
+          className: "eleven columns " + _this2.getNextColor(index),
+          key: discipline.key,
+          title: discipline.name,
+          linkTo: discipline.url
+        });
+      })), _react.default.createElement("h4", null, "\u041C\u0435\u0434\u044B\u044F \u043A\u0430\u043C\u043F\u0435\u0442\u044D\u043D\u0446\u044B\u0456"), _react.default.createElement("div", {
         className: "row"
       }, _react.default.createElement(_card.default, {
         className: "three columns",
@@ -40216,22 +40214,20 @@ function getIndexModel(json) {
     return popularItems;
   };
 
+  var getDisciplines = function getDisciplines() {
+    return json['all-disciplines'].map(function (discipline) {
+      return {
+        key: discipline.key,
+        name: discipline.text,
+        url: "/exercises?items.html?discipline=".concat(discipline.key)
+      };
+    });
+  };
+
   return {
     recent: getRecent(),
     popular: getPopular(),
-    disciplines: [{
-      name: "Біялогія",
-      url: "/exercises?discipline=biology"
-    }, {
-      name: "Чалавек і Свет",
-      url: "/exercises?discipline=manandtheworld"
-    }, {
-      name: "Мастацтва",
-      url: "/exercises?discipline=arts"
-    }, {
-      name: "Выхаваўчы занятак",
-      url: "/exercises?items.html?discipline=educational"
-    }],
+    disciplines: getDisciplines(),
     ageGroups: [{
       name: "Дзеці",
       url: "/exercises?ageGroup=elementary"
@@ -40264,6 +40260,11 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
+},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"css/react-slick-custom.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
 },{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"js/App.js":[function(require,module,exports) {
 "use strict";
 
@@ -40288,6 +40289,8 @@ var _indexController = _interopRequireDefault(require("./controllers/indexContro
 var _logo = _interopRequireDefault(require("../img/logo.png"));
 
 require("../css/index.scss");
+
+require("../css/react-slick-custom.scss");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -40482,7 +40485,7 @@ function (_React$Component3) {
 }(_react.default.Component);
 
 _reactDom.default.render(_react.default.createElement(App, null), document.getElementById('app'));
-},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","react-router-dom":"node_modules/react-router-dom/es/index.js","react-slick":"node_modules/react-slick/lib/index.js","./shared-components/spinner.jsx":"js/shared-components/spinner.jsx","./screens/index.jsx":"js/screens/index.jsx","./screens/exercise.jsx":"js/screens/exercise.jsx","./screens/exerciseList.jsx":"js/screens/exerciseList.jsx","./controllers/indexController.js":"js/controllers/indexController.js","../img/logo.png":"img/logo.png","../css/index.scss":"css/index.scss"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","react-router-dom":"node_modules/react-router-dom/es/index.js","react-slick":"node_modules/react-slick/lib/index.js","./shared-components/spinner.jsx":"js/shared-components/spinner.jsx","./screens/index.jsx":"js/screens/index.jsx","./screens/exercise.jsx":"js/screens/exercise.jsx","./screens/exerciseList.jsx":"js/screens/exerciseList.jsx","./controllers/indexController.js":"js/controllers/indexController.js","../img/logo.png":"img/logo.png","../css/index.scss":"css/index.scss","../css/react-slick-custom.scss":"css/react-slick-custom.scss"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -40509,7 +40512,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60933" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50263" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

@@ -6,12 +6,22 @@ import Slider from 'react-slick'
 const SectionTitle = (props) => 
     (<div>
         <div className="ten columns"><h4>{props.children}</h4></div>
-        <div className="two columns"><button>паказаць усе</button></div>
+        {/* <div className="two columns"><button>паказаць усе</button></div> */}
     </div>);
+
+
 
 export default class Index extends React.Component {
     constructor(props) {
         super(props);
+
+        this.disciplinesSliderSettings = {
+            dots: false,
+            infinite: false,
+            speed: 500,
+            slidesToShow: 4,
+            slidesToScroll: 1   
+        };
         this.sliderSettings = {
             dots: false,
             infinite: false,
@@ -19,6 +29,12 @@ export default class Index extends React.Component {
             slidesToShow: 4,
             slidesToScroll: 1   
         }
+    }
+
+    getNextColor(index) {
+        const classNames = ["pad-orange", "pad-green", "pad-blue", "pad-brown"];
+
+        return classNames[index % classNames.length];
     }
 
     render() {        
@@ -45,15 +61,25 @@ export default class Index extends React.Component {
                 <Card className="four columns"title="Дарослыя" linkTo="/exercise-list/?ageGroup=adults"/>
             </div>
 
-            <SectionTitle className="row">Прадметы</SectionTitle>
-            <div className="row">
+            {/* <SectionTitle className="row">Прадметы</SectionTitle> */}
+
+            {/* <div className="row">
                 <Card className="three columns pad-orange" title="Біялогія" linkTo="/exercise-list/?discipline=biology"/>
                 <Card className="three columns pad-blue" title="Геаграфія" linkTo="/exercise-list/?discipline=geography"/>
                 <Card className="three columns pad-brown" title="Гісторыя і грамадазнаўства" linkTo="/exercise-list/?discipline=history"/>
                 <Card className="three columns pad-green" title="Чалавек і свет" linkTo="/exercise-list/?discipline=manandtheworld"/>
-            </div>
+            </div> */}
 
-            <SectionTitle className="row">Медыя кампетэнцыі</SectionTitle>
+            <h4>Прадметы</h4>
+            <Slider {...this.disciplinesSliderSettings}>
+                {this.props.disciplines.map((discipline, index) => 
+                    <Card className={"eleven columns " + this.getNextColor(index)} 
+                        key={discipline.key} 
+                        title={discipline.name} 
+                        linkTo={discipline.url}/>)}
+            </Slider>
+
+            <h4>Медыя кампетэнцыі</h4>
             <div className="row">
                 <Card className="three columns" title="Доступ і надзейнасць крыніц"/>
                 <Card className="three columns" title="Аналіз медыя"/>

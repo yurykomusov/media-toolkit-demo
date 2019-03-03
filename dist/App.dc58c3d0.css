@@ -159,4 +159,7 @@ header {
   font-size: 1em;
   padding-left: 1em;
   padding-right: 1em;
+}/* overrides for react-slick library */
+.slick-slider .slick-arrow::before {
+  color: #D97D54;
 }

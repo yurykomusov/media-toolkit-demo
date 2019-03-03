@@ -3,27 +3,28 @@ import ItemsDataProvider from '../services/ItemsDataProvider.js';
 export default function getIndexModel(json) {
     let itemsDataProvider = new ItemsDataProvider(json['items']);
 
-    let getRecent = () => {
+    const getRecent = () => {
         let recentItemsGrouped = itemsDataProvider.applyGroupingAndSort('newest').executeQuery();
         let recentItems = recentItemsGrouped[Object.keys(recentItemsGrouped)[0]];
         return recentItems;
     }
 
-    let getPopular = () => {
+    const getPopular = () => {
         let popularItemsGrouped = itemsDataProvider.applyGroupingAndSort('popular').executeQuery();
         let popularItems = popularItemsGrouped[Object.keys(popularItemsGrouped)[0]];
         return popularItems;
     }
 
+    const getDisciplines = () => json['all-disciplines'].map(discipline => ({
+        key: discipline.key,
+        name: discipline.text,
+        url: `/exercises?items.html?discipline=${discipline.key}`
+    }))
+
     return {
         recent: getRecent(),
         popular: getPopular(),
-        disciplines: [
-            { name: "Біялогія", url: "/exercises?discipline=biology" },
-            { name: "Чалавек і Свет", url: "/exercises?discipline=manandtheworld" },
-            { name: "Мастацтва", url: "/exercises?discipline=arts" },
-            { name: "Выхаваўчы занятак", url: "/exercises?items.html?discipline=educational" },
-        ],
+        disciplines: getDisciplines(),
         ageGroups: [
             { name: "Дзеці", url: "/exercises?ageGroup=elementary"},
             { name: "Падлеткі", url: "/exercises?ageGroup=primary"},

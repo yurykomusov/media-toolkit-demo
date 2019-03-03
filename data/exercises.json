@@ -314,7 +314,13 @@
         { "key": "geography", "text": "Геаграфія" },
         { "key": "biology", "text": "Біялогія" },
         { "key": "history", "text": "Гісторыя" },
-        { "key": "educational", "text": "Выхаваўчы занятак" }
+        { "key": "educational", "text": "Выхаваўчы занятак" },
+        { "key": "literature", "text": "Літаратура" },
+        { "key": "languages", "text": "Мова" },
+        { "key": "physics", "text": "Фізіка" },
+        { "key": "math", "text": "Матэматыка" },
+        { "key": "computersciense", "text": "Інфарматыка" },
+        { "key": "foreignlanguage", "text": "Замежная мова" }
     ],
     "all-age-groups": [
         { "key": "elementary", "text": "Дзеці" },

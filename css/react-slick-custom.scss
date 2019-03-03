@@ -1,0 +1,7 @@
+/* overrides for react-slick library */
+
+@import './colors.scss';
+
+.slick-slider .slick-arrow::before {
+    color: $color-primary-orange;
+}
