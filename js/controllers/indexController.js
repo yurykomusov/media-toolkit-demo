@@ -16,8 +16,8 @@ export default function getIndexModel(json) {
     }
 
     return {
-        recent: getRecent().slice(0, 4),
-        popular: getPopular().slice(0, 4),
+        recent: getRecent(),
+        popular: getPopular(),
         disciplines: [
             { name: "Біялогія", url: "/exercises?discipline=biology" },
             { name: "Чалавек і Свет", url: "/exercises?discipline=manandtheworld" },
