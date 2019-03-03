@@ -18,7 +18,7 @@ export default function getIndexModel(json) {
     const getDisciplines = () => json['all-disciplines'].map(discipline => ({
         key: discipline.key,
         name: discipline.text,
-        url: `/exercises?items.html?discipline=${discipline.key}`
+        url: `/exercise-list/?discipline=${discipline.key}`
     }))
 
     return {

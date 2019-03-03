@@ -59,16 +59,7 @@ export default class Index extends React.Component {
                 <Card className="four columns" title="Дзеці" linkTo="/exercise-list/?ageGroup=elementary"/>
                 <Card className="four columns" title="Падлеткі" linkTo="/exercise-list/?ageGroup=primary"/>
                 <Card className="four columns"title="Дарослыя" linkTo="/exercise-list/?ageGroup=adults"/>
-            </div>
-
-            {/* <SectionTitle className="row">Прадметы</SectionTitle> */}
-
-            {/* <div className="row">
-                <Card className="three columns pad-orange" title="Біялогія" linkTo="/exercise-list/?discipline=biology"/>
-                <Card className="three columns pad-blue" title="Геаграфія" linkTo="/exercise-list/?discipline=geography"/>
-                <Card className="three columns pad-brown" title="Гісторыя і грамадазнаўства" linkTo="/exercise-list/?discipline=history"/>
-                <Card className="three columns pad-green" title="Чалавек і свет" linkTo="/exercise-list/?discipline=manandtheworld"/>
-            </div> */}
+            </div>            
 
             <h4>Прадметы</h4>
             <Slider {...this.disciplinesSliderSettings}>
