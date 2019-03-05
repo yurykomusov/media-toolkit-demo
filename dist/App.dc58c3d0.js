@@ -40367,7 +40367,11 @@ function (_React$Component2) {
         slidesToShow: 5,
         slidesToScroll: 1
       };
-      return _react.default.createElement("div", null, _react.default.createElement("h2", null, " Single Item"), _react.default.createElement(_reactSlick.default, settings, _react.default.createElement("div", null, _react.default.createElement("h3", null, "1")), _react.default.createElement("div", null, _react.default.createElement("h3", null, "2")), _react.default.createElement("div", null, _react.default.createElement("h3", null, "3")), _react.default.createElement("div", null, _react.default.createElement("h3", null, "4")), _react.default.createElement("div", null, _react.default.createElement("h3", null, "5")), _react.default.createElement("div", null, _react.default.createElement("h3", null, "6"))));
+      return _react.default.createElement("div", null, _react.default.createElement("h2", null, " Single Item"), _react.default.createElement(_reactSlick.default, settings, _react.default.createElement(Card, {
+        className: "three columns",
+        title: "something",
+        description: "Yet another text to put"
+      })));
     }
   }]);
 
@@ -40512,7 +40516,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52135" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58603" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
