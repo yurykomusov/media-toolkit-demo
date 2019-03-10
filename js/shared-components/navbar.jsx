@@ -11,7 +11,7 @@ export default class Navbar extends React.Component {
             <nav>
                 {/* <img src={logo}></img> */}
                 <div className="logo-box">
-                    <img class="logo-image" src={logoIcon}></img>                      
+                    <img className="logo-image" src={logoIcon}></img>                      
                     <Link to="/"><h1 className="title desktop-only">Nastaunik.info - тулкіт</h1></Link>
                 </div>
                 <div className="header-nav">

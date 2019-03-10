@@ -57,7 +57,7 @@ class App extends React.Component {
         super(props);
 
         if (process.env.NODE_ENV == 'production') {
-            this.basename = '/mediatoolkit';
+            this.basename = '/media-toolkit-demo/dist/';
         } else {
             this.basename = ''
         }
