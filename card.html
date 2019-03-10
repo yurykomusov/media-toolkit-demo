@@ -1,29 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&amp;subset=cyrillic" rel="stylesheet"> 
+    <link rel="stylesheet" href="css/normalize.css">
+    <!-- <link rel="stylesheet" href="css/skeleton.css"> -->
+    
     <style>
-        .container {
-            padding-top: 300px;
+        body {
+            font-family: "Roboto"
         }
 
-        .card {
-            background-color: orange;
-            width: 240px;
-            height: 200px;
+        .container {
+            background-color: #F0F3F4;
+            height: 50vw;
+            width: 1100px;
+            padding-top: 300px;
+            display: flex;
+            flex-grow: 1;
+            justify-content: space-between;
             margin: auto;
         }
+        
+        .card {
+            color: #1b1c20;
+            box-sizing: border-box;
+            background-color: white;
+            width: 220px;
+            height: 300px;
+            margin: auto;
+            border-radius: 1em;
+            overflow: hidden;
+            padding-bottom: 10px;
+            border-bottom: solid 20px white;
+            /* display: flex;
+            justify-content: center;
+            flex-direction: column; */
+            /* align-items: center; */
+            box-shadow: 0 10px 15px rgba(128,128,128,0.1),
+                        0 10px 15px rgba(128,128,128,0.1);
+        }
+        
+        .card h2 {
+            line-height: 0.75em;
+        }
+        
+        .card span {
+            text-align: left;
+        }
 
+        .card .card-image {
+            border-top-left-radius: 0.75em;
+            border-top-right-radius: 0.75em;
+            height: 50%;
+        }
+
+        .card-1 .card-image {
+            background-color: #B9B0A2;
+            color: #F0F3F4
+        }
+
+        .card-2 .card-image {
+            background-color: #D97D54;
+            color: #F0F3F4
+        }
+
+        .card-3 .card-image {
+            background-color: #324755;
+            color: #F0F3F4
+        }
+
+        .card-4 .card-image {
+            background-color: #C8D1D3;
+            color: #1b1c20
+        }
+
+        .card > * {
+            padding: 10px;
+        }
+
+        
     </style>
 </head>
+
 <body>
-    <div class="container">
-        <div class="card">
-            Hello, world
+    <div class="container">        
+        <div class="card card-1">
+            <div class="card-image">
+                <h2>Жыццё дзікіх жывёл зімой</h2>
+                <span>Біялогія</span>
+            </div>
+            <div>
+                <p>
+                    Як уводзіны ў тэму ўрока вучні параўноўваюць паведамленні у СМІ, якія супярэчаць адно другому. Напрыклад, пра шкоду і карысць прышчэпак. Каб даведацца праўду, вучні скарыстаюцца ведамі па тэме ўрока.
+                </p>
+            </div>
+        </div>
+        <div class="card card-2">
+            <div class="card-image">
+                <h2>Ці трэба рабіць прышчэпкі?</h2>
+                <span>Чалавек і грамадства</span>
+            </div>
+            <div>
+                <p>
+                    Кожны ўдзельнік атрымлівае ролю героя казкі і праз гульню набывае асновы медыя-інфармацыйных кампетэнцый: веды пра маніпуляцыі і сродкі ўплыву на людзей, навыкі праверкі інфармацыі і інфармацыйнай бяспекі, уменні супрацьстаяць маніпулятыўным прыёмам. Практыкаванне развівае крытычнае мысленне, уменні рабіць адказны выбар, прымаць рашэнні,  можа праводзіцца як у пачатковых класах, так і для дарослай аўдыторыі, падчас класнай і інфармацыйнай  гадзіны, урокаў інфарматыкі, АБЖ.
+                </p>
+            </div>
+        </div>
+        <div class="card card-3">
+            <div class="card-image">
+                <h2>Князёўна з трыма імёнамі</h2>
+                <span>Мова</span>
+            </div>
+            <div>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque non sunt mollitia eum iusto, eaque nisi voluptatem numquam temporibus alias doloribus iste nostrum quae voluptatibus optio quasi? Exercitationem, harum architecto!
+                </p>
+            </div>
+        </div>
+        <div class="card card-4">
+            <div class="card-image">
+                <h2>Ад батлейкі да паланэза</h2>
+                <span>Матэматыка</span>
+            </div>
+            <div>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia, laudantium maxime at impedit nesciunt cum esse ducimus consequatur ipsam. Deserunt illo laborum ex ipsa vitae similique alias, sint maiores. Ad.
+                </p>
+            </div>
         </div>
     </div>
 </body>
+
 </html>

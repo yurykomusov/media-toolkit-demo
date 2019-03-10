@@ -1,16 +1,16 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-
 import Slider from 'react-slick'
 
 import Spinner from './shared-components/spinner.jsx'
 import Index from  './screens/index.jsx'
+import Navbar from './shared-components/navbar.jsx'
 import Exercise from './screens/exercise.jsx'
 import ExerciseList from './screens/exerciseList.jsx'
+
 import getIndexModel  from './controllers/indexController.js'
 
-import logo from '../img/logo.png'
 import '../css/index.scss'
 import '../css/react-slick-custom.scss'
 
@@ -57,7 +57,7 @@ class App extends React.Component {
         super(props);
 
         if (process.env.NODE_ENV == 'production') {
-            this.basename = '/media-toolkit-demo/dist';
+            this.basename = '/mediatoolkit';
         } else {
             this.basename = ''
         }
@@ -78,7 +78,12 @@ class App extends React.Component {
             json: null
         };
 
-        fetch(this.basename + '/exercises.json')
+        const dataFileLocation = process.env.NODE_ENV == 'production'
+            ? 'https://yurykgeneral.blob.core.windows.net/aspnet-blob/exercises.json'
+            : '/exercises.json'
+
+
+        fetch(dataFileLocation)
             .then(response => response.json())
             .then(json => {
                 setTimeout(() => {
@@ -96,13 +101,9 @@ class App extends React.Component {
             <Router basename={this.basename}>
                 <div>
                     <header>
-                        <Link to="/">Nastaunik.info - Медыя Тулкіт</Link>
-                        <nav>
-                            <Link to="/">Галоўная</Link>
-                            <Link to="/authors">Аўтары</Link>
-                            <Link to="/about">А праекце</Link>
-                            <Link to="/help">Падтрымаць</Link>
-                        </nav>
+                        <div className="container">
+                            <Navbar></Navbar>
+                        </div>
                     </header>
                     <ContentContainerWithSpinner isLoading={this.state.isLoading}>
                         <Route exact path="/" component={() => <Index {...this.state.indexViewModel}/>}></Route>

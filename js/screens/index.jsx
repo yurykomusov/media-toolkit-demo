@@ -1,12 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Card from '../shared-components/card.jsx'
+import { Card, CardImage } from '../shared-components/card.jsx'
 import Slider from 'react-slick'
 
 const SectionTitle = (props) => 
     (<div>
         <div className="ten columns"><h4>{props.children}</h4></div>
-        {/* <div className="two columns"><button>паказаць усе</button></div> */}
     </div>);
 
 
@@ -20,19 +19,59 @@ export default class Index extends React.Component {
             infinite: false,
             speed: 500,
             slidesToShow: 4,
-            slidesToScroll: 1   
+            slidesToScroll: 1,
+            responsive: [
+                {
+                  breakpoint: 1024,
+                  settings: {
+                    slidesToShow: 3,                   
+                  }
+                },
+                {
+                  breakpoint: 600,
+                  settings: {
+                    slidesToShow: 2,
+                  }
+                },
+                {
+                  breakpoint: 480,
+                  settings: {
+                    slidesToShow: 1,
+                  }
+                }
+            ]
         };
         this.sliderSettings = {
             dots: false,
             infinite: false,
             speed: 500,
             slidesToShow: 4,
-            slidesToScroll: 1   
+            slidesToScroll: 1,
+            responsive: [
+                {
+                  breakpoint: 1024,
+                  settings: {
+                    slidesToShow: 3,
+                  }
+                },
+                {
+                  breakpoint: 600,
+                  settings: {
+                    slidesToShow: 2,
+                  }
+                },
+                {
+                  breakpoint: 480,
+                  settings: {
+                    slidesToShow: 1,
+                  }
+                }
+            ]
         }
     }
 
     getNextColor(index) {
-        const classNames = ["pad-orange", "pad-green", "pad-blue", "pad-brown"];
+        const classNames = ["card-1", "card-2", "card-3", "card-4"];
 
         return classNames[index % classNames.length];
     }
@@ -43,23 +82,40 @@ export default class Index extends React.Component {
                 <h4>Папулярныя</h4>
                 <div className="row">
                     <Slider {...this.sliderSettings}>
-                        {this.props.popular.map((i) => <Card className="eleven columns" key={i.title} title={i.title} description={i.summary} linkTo={`/exercise/${i.id}`}/>)}
+                        {this.props.popular.map((i, index) => 
+                          <Card className={"eleven columns " + this.getNextColor(index)} 
+                            key={i.id} title={i.title} 
+                            subtitle={i.discipline} 
+                            description={i.summary} 
+                            linkTo={`/exercise/${i.id}`}/>)}
                     </Slider>
                 </div> 
                 
                 <h4>Новыя</h4>
                 <div className="row">
                     <Slider {...this.sliderSettings}>
-                        {this.props.recent.map((i) => <Card className="eleven columns" key={i.title} title={i.title} description={i.summary} linkTo={`/exercise/${i.id}`} />)}
+                        {this.props.recent.map((i, index) => 
+                          <Card className={"eleven columns " + this.getNextColor(index)} 
+                            key={i.id} 
+                            title={i.title} 
+                            subtitle={i.discipline} 
+                            description={i.summary} 
+                            linkTo={`/exercise/${i.id}`} />)}
                     </Slider>
                 </div>
                 
             <SectionTitle className="row">Мэтавая група</SectionTitle>
             <div className="row">
-                <Card className="four columns" title="Дзеці" linkTo="/exercise-list/?ageGroup=elementary"/>
-                <Card className="four columns" title="Падлеткі" linkTo="/exercise-list/?ageGroup=primary"/>
-                <Card className="four columns"title="Дарослыя" linkTo="/exercise-list/?ageGroup=adults"/>
-            </div>            
+                <CardImage className="four columns kids text-white" 
+                  title="Дзеці" linkTo="/exercise-list/?ageGroup=elementary"
+                  imageUrl="https://yurykgeneral.blob.core.windows.net/aspnet-blob/kids.jpg"/>
+                <CardImage className="four columns teens text-white" 
+                  title="Падлеткі" linkTo="/exercise-list/?ageGroup=primary"
+                  imageUrl="https://yurykgeneral.blob.core.windows.net/aspnet-blob/teens.jpg"/>
+                <CardImage className="four columns teens text-white" 
+                  title="Дарослыя" linkTo="/exercise-list/?ageGroup=adults"
+                  imageUrl="https://yurykgeneral.blob.core.windows.net/aspnet-blob/adults.jpg"/>
+            </div>
 
             <h4>Прадметы</h4>
             <Slider {...this.disciplinesSliderSettings}>
@@ -72,10 +128,10 @@ export default class Index extends React.Component {
 
             <h4>Медыя кампетэнцыі</h4>
             <div className="row">
-                <Card className="three columns" title="Доступ і надзейнасць крыніц"/>
-                <Card className="three columns" title="Аналіз медыя"/>
-                <Card className="three columns" title="Ацэнка медыя"/>
-                <Card className="three columns" title="Стварэнне і карыстанне медыя прасторай"/>
+                <Card className="three columns card-1" title="Доступ і надзейнасць крыніц"/>
+                <Card className="three columns card-2" title="Аналіз медыя"/>
+                <Card className="three columns card-3" title="Ацэнка медыя"/>
+                <Card className="three columns card-4" title="Стварэнне і карыстанне медыя прасторай"/>
             </div>
         </div>);
     }

@@ -1,48 +1,74 @@
 @import '../../css/colors';
 
-.pad {
-    height: 200px;
+.card {
+    color: #1b1c20;
+    box-sizing: border-box;
     background-color: white;
-    text-align: center;
+    height: 300px;
+    border-radius: 0.8em;
     overflow: hidden;
-
-    line-height: 1.25;
-    h4 {
-        line-height: 1;
+    padding-bottom: 20px;
+    margin: auto;    
+    margin-bottom: 20px;
+    border-bottom: solid 20px white;
+    box-shadow: 0 10px 15px rgba(128,128,128,0.1),
+                0 10px 15px rgba(128,128,128,0.1);
+    .text-white {
+        color: white !important;
     }
 }
 
-.pad .image-container {
+.card-full {
+    border-bottom: initial;
+    height: 150px;
+}
+
+.card h2 {
+    line-height: 1em;
+}
+
+.card span {
+    text-align: left;
+}
+
+.card .card-image {
     height: 50%;
-    background-color: pink;
-    color: white;
+}
+
+.card .card-image-full {
+    height: 100%;
+    border-bottom-left-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+}
+
+.card-1 .card-image {
+    background-color: #B9B0A2;
+    color: #F0F3F4
+}
+
+.card-2 .card-image {
+    background-color: #D97D54;
+    color: #F0F3F4
+}
+
+.card-3 .card-image {
+    background-color: #324755;
+    color: #F0F3F4
+}
+
+.card-4 .card-image {
+    background-color: #C8D1D3;
+    color: #1b1c20
+}
+
+.card > * {
+    padding: 10px;
+    padding-top: 20px;
+}
+
+.text-center {
+    text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: background-color 0.3s linear;
-}
-
-.pad-orange .image-container{
-    background-color: $color-primary-orange;
-}
-
-.pad-green .image-container {
-    background-color: $color-primary-green;
-}
-
-.pad-blue .image-container {
-    background-color: $color-primary-blue;
-}
-
-.pad-brown .image-container {
-    background-color: $color-secondary-brown;
-}
-
-
-.pad .image-container:hover {
-    background-color: plum;
-}
-
-.pad .image-container-full {
-    height: 100%;
 }
