@@ -1,7 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Card from '../shared-components/card.jsx'
-import userpic from '../../img/userpic.jpg'
 import ItemsDataProvider from '../services/ItemsDataProvider.js';
 import { Link } from 'react-router-dom';
 import { markdown } from 'markdown';
@@ -49,7 +48,9 @@ const Exercise = ({exercise, json}) => (
             <div className="four columns">
                 <div className="tab tab-author">
                     <h3>Аўтар</h3>
-                    <p><img src={userpic} style={{width: "100%"}}></img></p>
+                    <p>
+                        {/* <img src={userpic} style={{width: "100%"}}></img> */}
+                    </p>
                     <p>{exercise.firstName + ' ' + exercise.lastName}</p>
                     <div className="author-occupation">
                         Adipisicing laboris ex labore esse reprehenderit incididunt commodo nostrud ipsum commodo excepteur velit id deserunt.
@@ -68,6 +69,12 @@ const Exercise = ({exercise, json}) => (
                         {exercise.themes.map((theme) => <li key={theme}><Link to={`/exercise-list/?theme=${theme}`}>{`#` + getThemeTitle(theme, json)}</Link></li>)}
                         <hr/>
                         {exercise.methods.map((method) => <li key={method}><Link to={`exercise-lie/?method=${method}`}>{`#` + method}</Link></li>)}
+                    </ul>
+                </div>
+                <div className="tab tab-links">
+                    <h3>Спасылкі</h3>
+                    <ul>
+                        {exercise.links.map(lnk => <li key={lnk.url}><a href={lnk.url}>{lnk.name}</a></li>)}
                     </ul>
                 </div>
                 <div className="tab tab-suggestion">
