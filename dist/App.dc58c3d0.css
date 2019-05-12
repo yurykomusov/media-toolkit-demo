@@ -59,8 +59,7 @@
   100% {
     transform: translate(19px, 0);
   }
-}
-.card {
+}.card {
   color: #1b1c20;
   box-sizing: border-box;
   background-color: white;
@@ -130,8 +129,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
-nav {
+}nav {
   display: flex;
   margin-top: 10px;
 }
@@ -204,8 +202,7 @@ nav ul {
 }
 nav ul li a {
   color: #1b1c20;
-}
-body {
+}body {
   background-color: #F0F3F4;
   font-family: "Roboto";
 }
@@ -220,6 +217,10 @@ h2 {
 
 a {
   text-decoration: none;
+}
+
+.selected {
+  color: palevioletred;
 }
 
 .hidden {
@@ -247,10 +248,7 @@ a {
 
 .brightness80 {
   filter: brightness(80%);
-}
-/* overrides for react-slick library */
+}/* overrides for react-slick library */
 .slick-slider .slick-arrow::before {
   color: #D97D54;
 }
-
-/*# sourceMappingURL=/App.dc58c3d0.css.map */

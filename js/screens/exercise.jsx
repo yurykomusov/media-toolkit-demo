@@ -7,15 +7,15 @@ import { markdown } from 'markdown';
 
 const createDangerousMarkup = (text) => ({__html: text});
 
-const getAgeGroupTitle = (ageGroupKey, json) => {
-    return (json['all-age-groups'].find(i => i.key === ageGroupKey)).text;
+const getAgeGroupTitle = (ageGroupKey, ageGroups) => {
+    return (ageGroups.find(i => i.key === ageGroupKey)).text;
 }
 
-const getThemeTitle = (themeKey, json) => {
-    return (json['all-themes'].find(i => i.key === themeKey)).text;
+const getThemeTitle = (themeKey, themes) => {
+    return (themes.find(i => i.key === themeKey)).text;
 }
 
-const Exercise = ({exercise, json}) => (
+const Exercise = ({exercise, themes, ageGroups}) => (
     <div className="row">
             <div className="eight columns">
                 <div className="tab tab-title">
@@ -37,13 +37,13 @@ const Exercise = ({exercise, json}) => (
                         <div className="four columns">
                             <div>Мэтавая група</div>
                             <div>icon 3</div>
-                            <div>{getAgeGroupTitle(exercise.ageRange, json)}</div>                             
+                            <div>{getAgeGroupTitle(exercise.ageRange, ageGroups)}</div>
                         </div>
                     </div>
 
 
                 </div>
-                <div className="tab tab-main" dangerouslySetInnerHTML={createDangerousMarkup(markdown.toHTML(exercise.text.join('\n')))}/>
+                <div className="tab tab-main" dangerouslySetInnerHTML={createDangerousMarkup(markdown.toHTML(exercise.text))}/>
             </div>
             <div className="four columns">
                 <div className="tab tab-author">
@@ -53,10 +53,10 @@ const Exercise = ({exercise, json}) => (
                     </p>
                     <p>{exercise.firstName + ' ' + exercise.lastName}</p>
                     <div className="author-occupation">
-                        Adipisicing laboris ex labore esse reprehenderit incididunt commodo nostrud ipsum commodo excepteur velit id deserunt.
+                        
                     </div>
                     <div className="author-about">
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestias deserunt odit fugit dicta ipsam quidem quas tempora, fuga corrupti non amet nisi, labore temporibus voluptas saepe quaerat voluptatibus libero officiis?
+                        
                     </div>
                 </div>
                 <div className="tab tab-hardware">
@@ -66,7 +66,7 @@ const Exercise = ({exercise, json}) => (
                 <div className="tab tab-tags">
                     <h3>Тэгі</h3>
                     <ul>
-                        {exercise.themes.map((theme) => <li key={theme}><Link to={`/exercise-list/?theme=${theme}`}>{`#` + getThemeTitle(theme, json)}</Link></li>)}
+                        {exercise.themes.map((theme) => <li key={theme}><Link to={`/exercise-list/?theme=${theme}`}>{`#` + getThemeTitle(theme, themes)}</Link></li>)}
                         <hr/>
                         {exercise.methods.map((method) => <li key={method}><Link to={`exercise-lie/?method=${method}`}>{`#` + method}</Link></li>)}
                     </ul>

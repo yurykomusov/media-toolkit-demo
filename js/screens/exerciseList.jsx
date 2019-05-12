@@ -80,8 +80,8 @@ const SearchResultGroup = ({title, items}) => (
             </div>)}
     </React.Fragment>    
 )
-
 const SearchResult = ({foundItems}) => {
+
     if (Object.keys(foundItems).length == 0) {
         return <span>Не знойдзена ніводнага практыкавання:( Паспрабуйце пашукаць па іншых крытэрыях</span>
     } else {
@@ -93,13 +93,13 @@ class ExerciseList extends React.Component {
     constructor(props) {
         super(props);
 
-        this.itemsDataProvider = new ItemsDataProvider(props.json['items']);
+        this.itemsDataProvider = new ItemsDataProvider(props.exercises);
 
         let searchParams = new URLSearchParams(props.location.search);
         this.state = {
-            disciplines: props.json['all-disciplines'],
-            ageGroups: props.json['all-age-groups'],
-            themes: props.json['all-themes'],
+            disciplines: props.disciplines,
+            ageGroups: props.ageGroups,
+            themes: props.themes,
             allSortAndGroup: [
                 { "key": "newest", "text": "Новыя"},
                 { "key": "oldest", "text": "Старыя"},

@@ -344,7 +344,7 @@
     "all-competentions": [
         { "key": "reliablity", "text": "Доступ і надзейнасць крыніц"},
         { "key": "analisys", "text": "Аналіз медыя"},
-        { "key": "assessment", "text": "Аценка медыя"},
+        { "key": "assessment", "text": "Ацэнка медыя"},
         { "key": "creative", "text": "Стварэнне і карыстанне медыя прасторай"}
     ]
 }

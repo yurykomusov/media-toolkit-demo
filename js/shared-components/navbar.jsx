@@ -9,7 +9,6 @@ export default class Navbar extends React.Component {
     render() {
         return (
             <nav>
-                {/* <img src={logo}></img> */}
                 <div className="logo-box">
                     <img className="logo-image" src={logoIcon}></img>                      
                     <Link to="/"><h1 className="title desktop-only">Nastaunik.info - тулкіт</h1></Link>
@@ -24,7 +23,7 @@ export default class Navbar extends React.Component {
                     <ul>
                         <li><Link to="/">Галоўная</Link></li>
                         <li><Link to="/authors">Аўтары</Link></li>
-                        <li><Link to="/about">А праекце</Link></li>
+                        <li><Link to="/about">Аб праекце</Link></li>
                         <li><Link to="/help">Падтрымаць</Link></li>
                     </ul>
                 </div>

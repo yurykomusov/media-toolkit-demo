@@ -11,6 +11,7 @@
             "url": "http://localhost:1234",
             "webRoot": "${workspaceFolder}/dist",
             "sourceMaps": true,
+            "runtimeArgs": [" --disable-web-security"],
             "sourceMapPathOverrides": {
                 "*": "${webRoot}/*"
               }

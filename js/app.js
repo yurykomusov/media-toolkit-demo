@@ -14,6 +14,8 @@ import getIndexModel  from './controllers/indexController.js'
 import '../css/index.scss'
 import '../css/react-slick-custom.scss'
 
+import DataStore from './services/data/datastore.js'
+
 function withSpinner(WrappedComponent) {
     return class extends React.Component {
         constructor(props) {
@@ -44,10 +46,14 @@ class About extends React.Component {
 
         return (
         <div>
-            <h2> Single Item</h2>
-            <Slider {...settings}>
-                <Card className="three columns" title="something" description="Yet another text to put"></Card>
-            </Slider>
+            <p>MediaToоlkit - гэта скарбонка практыкаванняў для развіцця медыяпісьменнасці. Яе ствараюць настаўнікі, медыяпедагогі, журналісты.</p>
+            <p>У скарбонку трапляюць тыя практыкаванні, якія дапамагаюць настаўнікам на прыкладзе медыятэкстаў патлумачыць вучням змест урока, а разам з тым даюць адказ на шмат іншых пытанняў, важных для жыцця ў інфармацыйным грамадстве. Як адрозніць фэйк ад праўды?  Як праверыць надзейнасць крыніц інфармацыі? Ці можна давяраць рэкламе? Чаму адна і тая ж падзея выклікае розную рэакцыю ў людзей? Што рабіць, калі цябе троляць? Як не заблытацца ў сацыяльных сетках і не стаць ахвярай кібербулінгу?</p>
+            <p>Спецыяльныя фільтры дазваляюць знайсці практыкаванні для розных прадметаў і ўзросту навучэнцаў. Акрамя таго, адмысловыя тэгі дапамогуць адабраць заданні паводле  скарыстанага метаду, медыякампетэнцыі.</p>
+            <p>Аўтары практыкаванняў падабралі цікавыя для дзяцей прыклады, падрыхтавалі іншыя дапаможныя матэрыялы для заняткаў: карысныя спасылкі, публікацыі ў СМІ і метадычныя рэкамендацыі для калег.</p>
+            <p>Урокі, класныя і інфармацыйныя гадзіны, выхаваўчыя мерапрыемствы з медыяадукацыйным зместам дапамагаюць развіць крытычнае мысленне і засвоіць практычныя навыкі бяспечнага і адказнага карыстання медыйнай прасторай. </p>
+            <p>Дасылайце нам вашыя практыкаванні і прапановы на адрас: nastaunik.info@gmail.com</p>
+            <p>Сачыце за навінамі ў нашай суполцы ў Facebook «Медыяадукатар»: <a href="https://www.facebook.com/groups/medyaadukatar/">https://www.facebook.com/groups/medyaadukatar/</a></p>
+            <p>Дзякуем за ідэю стварэння тулкіта міжнароднаму праекту Medianavigator.org: <a href="https://medianavigator.org/">https://medianavigator.org/</a></p>
         </div>);
     }
 }
@@ -57,7 +63,7 @@ class App extends React.Component {
         super(props);
 
         if (process.env.NODE_ENV == 'production') {
-            this.basename = '/media-toolkit-demo/dist/';
+            this.basename = '/mediatoolkit/';
         } else {
             this.basename = ''
         }
@@ -75,25 +81,26 @@ class App extends React.Component {
                 mediaCompetences: []
             },
             isLoading: true,
-            json: null
+            disciplines: null,
+            ageGroups: null,
+            disciplines: null,
+            themes: null
         };
 
-        const dataFileLocation = process.env.NODE_ENV == 'production'
-            ? 'https://yurykgeneral.blob.core.windows.net/aspnet-blob/exercises.json'
-            : '/exercises.json'
-
-
-        fetch(dataFileLocation)
-            .then(response => response.json())
-            .then(json => {
-                setTimeout(() => {
-                    self.setState({
-                        indexViewModel: getIndexModel(json),
-                        isLoading: false,
-                        json: json
-                    });    
-                }, 1000);
-            });
+        const useCms = true;
+        const dataStore = new DataStore(useCms);
+        
+        Promise.all([dataStore.getExercises(), dataStore.getDisciplines(), dataStore.getThemes(), dataStore.getAgeGroups()])
+            .then(([exercises, disciplines, themes, ageGroups]) => setTimeout(() => {
+                self.setState({
+                    indexViewModel: getIndexModel(exercises, disciplines),
+                    isLoading: false,
+                    exercises: exercises,
+                    disciplines: disciplines,
+                    themes: themes,
+                    ageGroups: ageGroups
+                });    
+            }, 1000));
     }
 
     render() {
@@ -107,8 +114,8 @@ class App extends React.Component {
                     </header>
                     <ContentContainerWithSpinner isLoading={this.state.isLoading}>
                         <Route exact path="/" component={() => <Index {...this.state.indexViewModel}/>}></Route>
-                        <Route path="/exercise-list" component={(props) => <ExerciseList json={this.state.json} {...props}></ExerciseList>}></Route>
-                        <Route path="/exercise/:id" component={(props) => <Exercise {...props} json={this.state.json} exercise={this.state.json.items.filter((item) => item.id === props.match.params.id)[0]} ></Exercise>}></Route>
+                        <Route path="/exercise-list" component={(props) => <ExerciseList {...props} exercises={this.state.exercises} disciplines={this.state.disciplines} themes={this.state.themes} ageGroups={this.state.ageGroups}></ExerciseList>}></Route>
+                        <Route path="/exercise/:id" component={(props) => <Exercise {...props} exercise={this.state.exercises.filter((item) => item.id === props.match.params.id)[0]} themes={this.state.themes} ageGroups={this.state.ageGroups}></Exercise>}></Route>
                         <Route path="/authors" component={() => <div>Site is under construction. Please be patient</div>}></Route>
                         <Route path="/about" component={About}></Route>
                         <Route path="/help" component={() => <div>Site is under construction. Please be patient</div>}></Route>

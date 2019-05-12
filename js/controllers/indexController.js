@@ -1,7 +1,7 @@
 import ItemsDataProvider from '../services/ItemsDataProvider.js';
 
-export default function getIndexModel(json) {
-    let itemsDataProvider = new ItemsDataProvider(json['items']);
+export default function getIndexModel(exercises, disciplines) {
+    let itemsDataProvider = new ItemsDataProvider(exercises);
 
     const getRecent = () => {
         let recentItemsGrouped = itemsDataProvider.applyGroupingAndSort('newest').executeQuery();
@@ -15,7 +15,7 @@ export default function getIndexModel(json) {
         return popularItems;
     }
 
-    const getDisciplines = () => json['all-disciplines'].map(discipline => ({
+    const getDisciplines = () => disciplines.map(discipline => ({
         key: discipline.key,
         name: discipline.text,
         url: `/exercise-list/?discipline=${discipline.key}`
