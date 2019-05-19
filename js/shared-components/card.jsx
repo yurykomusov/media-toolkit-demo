@@ -9,7 +9,7 @@ export function Card(props) {
             <div className={props.className}>
                 <Link to={props.linkTo || "/"}>
                     <div className="card">
-                        <div className="card-image">
+                        <div className="card-image flex-column-space-between">
                             <h2>{props.title}</h2>
                             <span>{props.subtitle}</span>
                         </div>

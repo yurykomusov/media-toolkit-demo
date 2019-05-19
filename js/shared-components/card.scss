@@ -4,7 +4,7 @@
     color: #1b1c20;
     box-sizing: border-box;
     background-color: white;
-    height: 300px;
+    height: 320px;
     border-radius: 0.8em;
     overflow: hidden;
     padding-bottom: 20px;
@@ -39,6 +39,7 @@
     height: 100%;
     border-bottom-left-radius: 0.5em;
     border-bottom-right-radius: 0.5em;
+
 }
 
 .card-1 .card-image {
@@ -71,4 +72,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+
+.flex-column-space-between {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }

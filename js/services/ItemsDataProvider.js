@@ -7,7 +7,8 @@ export default class ItemsDataProvider {
         this._filterConfig = {
             "discipline": (filterValue) => (item) => item.discipline_id.toUpperCase() == filterValue.toUpperCase(),
             "ageGroup": (filterValue) => (item) => item.ageRange.toUpperCase() == filterValue.toUpperCase(),
-            "theme": (filterValue) => (item) => item.themes.toUpperCase() == filterValue.toUpperCase()
+            "theme": (filterValue) => (item) => item.themes.toUpperCase() == filterValue.toUpperCase(),
+            "competence": (filterValue) => (item) => item.competence.toUpperCase() == filterValue.toUpperCase()
         }
         this._filtersToApply = [];
         this._groupingToApply = (data) => ({ "": data });

@@ -3,6 +3,12 @@ import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Slider from 'react-slick'
 
+import '../css/normalize.css'
+import '../css/skeleton.css'
+
+import '../css/index.scss'
+import '../css/react-slick-custom.scss'
+
 import Spinner from './shared-components/spinner.jsx'
 import Index from  './screens/index.jsx'
 import Navbar from './shared-components/navbar.jsx'
@@ -11,8 +17,6 @@ import ExerciseList from './screens/exerciseList.jsx'
 
 import getIndexModel  from './controllers/indexController.js'
 
-import '../css/index.scss'
-import '../css/react-slick-custom.scss'
 
 import DataStore from './services/data/datastore.js'
 
@@ -78,27 +82,31 @@ class App extends React.Component {
                 popular: [],
                 disciplines: [],
                 ageGroups: [],
-                mediaCompetences: []
+                competencies: []
             },
             isLoading: true,
             disciplines: null,
             ageGroups: null,
             disciplines: null,
-            themes: null
+            themes: null,
+            competencies: null
         };
 
         const useCms = true;
         const dataStore = new DataStore(useCms);
         
-        Promise.all([dataStore.getExercises(), dataStore.getDisciplines(), dataStore.getThemes(), dataStore.getAgeGroups()])
-            .then(([exercises, disciplines, themes, ageGroups]) => setTimeout(() => {
+        Promise.all([dataStore.getExercises(), dataStore.getDisciplines(), dataStore.getThemes(), dataStore.getAgeGroups(), dataStore.getCompetencies()])
+            .then(([exercises, disciplines, themes, ageGroups, competencies]) => setTimeout(() => {
+                exercises = exercises.map(e => ({...e, discipline: disciplines.find(d => d.key === e.discipline_id).text}))
+
                 self.setState({
                     indexViewModel: getIndexModel(exercises, disciplines),
                     isLoading: false,
                     exercises: exercises,
                     disciplines: disciplines,
                     themes: themes,
-                    ageGroups: ageGroups
+                    ageGroups: ageGroups,
+                    competencies: competencies
                 });    
             }, 1000));
     }
@@ -114,8 +122,23 @@ class App extends React.Component {
                     </header>
                     <ContentContainerWithSpinner isLoading={this.state.isLoading}>
                         <Route exact path="/" component={() => <Index {...this.state.indexViewModel}/>}></Route>
-                        <Route path="/exercise-list" component={(props) => <ExerciseList {...props} exercises={this.state.exercises} disciplines={this.state.disciplines} themes={this.state.themes} ageGroups={this.state.ageGroups}></ExerciseList>}></Route>
-                        <Route path="/exercise/:id" component={(props) => <Exercise {...props} exercise={this.state.exercises.filter((item) => item.id === props.match.params.id)[0]} themes={this.state.themes} ageGroups={this.state.ageGroups}></Exercise>}></Route>
+                        <Route path="/exercise-list" 
+                            component={(props) => 
+                                <ExerciseList {...props} 
+                                    exercises={this.state.exercises} 
+                                    disciplines={this.state.disciplines} 
+                                    themes={this.state.themes} 
+                                    ageGroups={this.state.ageGroups}
+                                    competencies={this.state.competencies}></ExerciseList>}>
+                        </Route>
+                        <Route path="/exercise/:id" component={(props) => 
+                            <Exercise {...props} 
+                                exercise={this.state.exercises.filter((item) => item.id === props.match.params.id)[0]} 
+                                themes={this.state.themes} 
+                                ageGroups={this.state.ageGroups} 
+                                competencies={this.state.competencies}>
+                            </Exercise>}>
+                        </Route>
                         <Route path="/authors" component={() => <div>Site is under construction. Please be patient</div>}></Route>
                         <Route path="/about" component={About}></Route>
                         <Route path="/help" component={() => <div>Site is under construction. Please be patient</div>}></Route>

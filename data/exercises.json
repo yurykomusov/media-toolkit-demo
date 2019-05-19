@@ -341,7 +341,7 @@
         { "key": "disinformation", "text": "Дэзінфармацыя" },
         { "key": "infosourcing", "text": "Пошук і збор інфармацыі" }
     ],
-    "all-competentions": [
+    "all-competencies": [
         { "key": "reliablity", "text": "Доступ і надзейнасць крыніц"},
         { "key": "analisys", "text": "Аналіз медыя"},
         { "key": "assessment", "text": "Ацэнка медыя"},

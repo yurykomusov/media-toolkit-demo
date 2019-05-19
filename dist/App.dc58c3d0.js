@@ -34695,7 +34695,27 @@ function reloadCSS() {
 }
 
 module.exports = reloadCSS;
-},{"./bundle-url":"node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"js/shared-components/spinner.scss":[function(require,module,exports) {
+},{"./bundle-url":"node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"css/normalize.css":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"css/skeleton.css":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"css/index.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"css/react-slick-custom.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"js/shared-components/spinner.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -34775,7 +34795,7 @@ function Card(props) {
     }, _react.default.createElement("div", {
       className: "card"
     }, _react.default.createElement("div", {
-      className: "card-image"
+      className: "card-image flex-column-space-between"
     }, _react.default.createElement("h2", null, props.title), _react.default.createElement("span", null, props.subtitle)), _react.default.createElement("div", null, props.description))));
   } else {
     return _react.default.createElement("div", {
@@ -34944,18 +34964,25 @@ function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      return _react.default.createElement("div", null, _react.default.createElement("h4", null, "\u041F\u0430\u043F\u0443\u043B\u044F\u0440\u043D\u044B\u044F"), _react.default.createElement("div", {
+      return _react.default.createElement("div", null, _react.default.createElement("h4", null, "\u041C\u0435\u0434\u044B\u044F \u043A\u0430\u043C\u043F\u0435\u0442\u044D\u043D\u0446\u044B\u0456"), _react.default.createElement("div", {
         className: "row"
-      }, _react.default.createElement(_reactSlick.default, this.sliderSettings, this.props.popular.map(function (i, index) {
-        return _react.default.createElement(_card.Card, {
-          className: "eleven columns " + _this2.getNextColor(index),
-          key: i.id,
-          title: i.title,
-          subtitle: i.discipline,
-          description: i.summary,
-          linkTo: "/exercise/".concat(i.id)
-        });
-      }))), _react.default.createElement("h4", null, "\u041D\u043E\u0432\u044B\u044F"), _react.default.createElement("div", {
+      }, _react.default.createElement(_card.Card, {
+        className: "three columns card-1",
+        title: "\u0414\u043E\u0441\u0442\u0443\u043F \u0456 \u043D\u0430\u0434\u0437\u0435\u0439\u043D\u0430\u0441\u0446\u044C \u043A\u0440\u044B\u043D\u0456\u0446",
+        linkTo: "/exercise-list/?competence=reliability"
+      }), _react.default.createElement(_card.Card, {
+        className: "three columns card-2",
+        title: "\u0410\u043D\u0430\u043B\u0456\u0437 \u043C\u0435\u0434\u044B\u044F",
+        linkTo: "/exercise-list/?competence=analysis"
+      }), _react.default.createElement(_card.Card, {
+        className: "three columns card-3",
+        title: "\u0410\u0446\u044D\u043D\u043A\u0430 \u043C\u0435\u0434\u044B\u044F",
+        linkTo: "/exercise-list/?competence=assessment"
+      }), _react.default.createElement(_card.Card, {
+        className: "three columns card-4",
+        title: "\u0421\u0442\u0432\u0430\u0440\u044D\u043D\u043D\u0435 \u0456 \u043A\u0430\u0440\u044B\u0441\u0442\u0430\u043D\u043D\u0435 \u043C\u0435\u0434\u044B\u044F \u043F\u0440\u0430\u0441\u0442\u043E\u0440\u0430\u0439",
+        linkTo: "/exercise-list/?competence=creative"
+      })), _react.default.createElement("h4", null, "\u041D\u043E\u0432\u044B\u044F"), _react.default.createElement("div", {
         className: "row"
       }, _react.default.createElement(_reactSlick.default, this.sliderSettings, this.props.recent.map(function (i, index) {
         return _react.default.createElement(_card.Card, {
@@ -34992,20 +35019,6 @@ function (_React$Component) {
           title: discipline.name,
           linkTo: discipline.url
         });
-      })), _react.default.createElement("h4", null, "\u041C\u0435\u0434\u044B\u044F \u043A\u0430\u043C\u043F\u0435\u0442\u044D\u043D\u0446\u044B\u0456"), _react.default.createElement("div", {
-        className: "row"
-      }, _react.default.createElement(_card.Card, {
-        className: "three columns card-1",
-        title: "\u0414\u043E\u0441\u0442\u0443\u043F \u0456 \u043D\u0430\u0434\u0437\u0435\u0439\u043D\u0430\u0441\u0446\u044C \u043A\u0440\u044B\u043D\u0456\u0446"
-      }), _react.default.createElement(_card.Card, {
-        className: "three columns card-2",
-        title: "\u0410\u043D\u0430\u043B\u0456\u0437 \u043C\u0435\u0434\u044B\u044F"
-      }), _react.default.createElement(_card.Card, {
-        className: "three columns card-3",
-        title: "\u0410\u0446\u044D\u043D\u043A\u0430 \u043C\u0435\u0434\u044B\u044F"
-      }), _react.default.createElement(_card.Card, {
-        className: "three columns card-4",
-        title: "\u0421\u0442\u0432\u0430\u0440\u044D\u043D\u043D\u0435 \u0456 \u043A\u0430\u0440\u044B\u0441\u0442\u0430\u043D\u043D\u0435 \u043C\u0435\u0434\u044B\u044F \u043F\u0440\u0430\u0441\u0442\u043E\u0440\u0430\u0439"
       })));
     }
   }]);
@@ -35205,6 +35218,11 @@ function () {
       "theme": function theme(filterValue) {
         return function (item) {
           return item.themes.toUpperCase() == filterValue.toUpperCase();
+        };
+      },
+      "competence": function competence(filterValue) {
+        return function (item) {
+          return item.competence.toUpperCase() == filterValue.toUpperCase();
         };
       }
     };
@@ -40051,7 +40069,7 @@ var Exercise = function Exercise(_ref) {
     className: "four columns"
   }, _react.default.createElement("div", {
     className: "tab tab-author"
-  }, _react.default.createElement("h3", null, "\u0410\u045E\u0442\u0430\u0440"), _react.default.createElement("p", null), _react.default.createElement("p", null, exercise.firstName + ' ' + exercise.lastName), _react.default.createElement("div", {
+  }, _react.default.createElement("h3", null, "\u0410\u045E\u0442\u0430\u0440"), _react.default.createElement("p", null), _react.default.createElement("p", null, exercise.firstName + ' ' + exercise.lastName || ''), _react.default.createElement("div", {
     className: "author-occupation"
   }), _react.default.createElement("div", {
     className: "author-about"
@@ -40086,12 +40104,7 @@ var Exercise = function Exercise(_ref) {
 
 var _default = Exercise;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","../shared-components/card.jsx":"js/shared-components/card.jsx","../services/ItemsDataProvider.js":"js/services/ItemsDataProvider.js","react-router-dom":"node_modules/react-router-dom/es/index.js","markdown":"node_modules/markdown/lib/index.js"}],"css/index.scss":[function(require,module,exports) {
-var reloadCSS = require('_css_loader');
-
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"js/screens/exerciseList.jsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","../shared-components/card.jsx":"js/shared-components/card.jsx","../services/ItemsDataProvider.js":"js/services/ItemsDataProvider.js","react-router-dom":"node_modules/react-router-dom/es/index.js","markdown":"node_modules/markdown/lib/index.js"}],"js/screens/exerciseList.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -40108,8 +40121,6 @@ var _card = require("../shared-components/card.jsx");
 var _ItemsDataProvider = _interopRequireDefault(require("../services/ItemsDataProvider.js"));
 
 var _ = _interopRequireWildcard(require("../utils.js"));
-
-require("../../css/");
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
@@ -40214,10 +40225,10 @@ var FilterBox = function FilterBox(props) {
     handleChange: props.onAgeGroupFilterChange
   })), _react.default.createElement("div", {
     className: "three columns"
-  }, _react.default.createElement("label", null, "\u0422\u044D\u043C\u044B"), _react.default.createElement(FilterList, {
-    items: props.themes,
-    selected: props.filterThemes,
-    handleChange: props.onThemesFilterChange
+  }, _react.default.createElement("label", null, "\u041A\u0430\u043C\u043F\u0435\u0442\u044D\u043D\u0446\u044B\u0456"), _react.default.createElement(FilterList, {
+    items: props.competencies,
+    selected: props.filterCompetencies,
+    handleChange: props.onCompetenciesFilterChange
   })), _react.default.createElement("div", {
     className: "three columns"
   }, _react.default.createElement("label", null, "\u0417\u0433\u0440\u0443\u043F\u0430\u0432\u0430\u0446\u044C \u043F\u0430"), _react.default.createElement(FilterList, {
@@ -40280,6 +40291,7 @@ function (_React$Component2) {
     _this3.state = {
       disciplines: props.disciplines,
       ageGroups: props.ageGroups,
+      competencies: props.competencies,
       themes: props.themes,
       allSortAndGroup: [{
         "key": "newest",
@@ -40301,6 +40313,7 @@ function (_React$Component2) {
       filterAgeGroup: searchParams.get('ageGroup'),
       filterDisciplines: searchParams.get('discipline'),
       filterThemes: searchParams.get('theme'),
+      filterCompetencies: searchParams.get('competence'),
       sortAndGroup: DEFAULT_SORT,
       foundItems: {
         "If you see this we probaly screwed": []
@@ -40319,11 +40332,15 @@ function (_React$Component2) {
           filterDisciplines: newValue
         });
       },
-      onThemesFilterChange: function onThemesFilterChange(_, newValue) {
-        props.history.push("/exercise-list/?".concat(_this3.getNewSearchUrl('theme', newValue).toString()));
+      // onThemesFilterChange: (_, newValue) => {
+      //     props.history.push(`/exercise-list/?${this.getNewSearchUrl('theme', newValue).toString()}`);
+      //     this.setState({filterThemes: newValue})
+      // },
+      onCompetenciesFilterChange: function onCompetenciesFilterChange(_, newValue) {
+        props.history.push("/exercise-list/?".concat(_this3.getNewSearchUrl('competence', newValue).toString()));
 
         _this3.setState({
-          filterThemes: newValue
+          filterCompetencies: newValue
         });
       },
       onSortAndGroupChange: function onSortAndGroupChange(_, newValue) {
@@ -40345,10 +40362,10 @@ function (_React$Component2) {
     }
   }, {
     key: "getSearchResult",
-    value: function getSearchResult(filterAgeGroup, filterDisciplines, filterThemes, sortAndGroup) {
+    value: function getSearchResult(filterAgeGroup, filterDisciplines, filterThemes, filterCompetencies, sortAndGroup) {
       var _this4 = this;
 
-      var searchResult = this.itemsDataProvider.newQuery().applyFilter('ageGroup', filterAgeGroup).applyFilter('discipline', filterDisciplines).applyFilter('theme', filterThemes).applyGroupingAndSort(sortAndGroup).executeQuery();
+      var searchResult = this.itemsDataProvider.newQuery().applyFilter('ageGroup', filterAgeGroup).applyFilter('discipline', filterDisciplines).applyFilter('theme', filterThemes).applyFilter('competence', filterCompetencies).applyGroupingAndSort(sortAndGroup).executeQuery();
       return Object.keys(searchResult).reduce(function (accumulator, groupKey) {
         return _objectSpread({}, accumulator, _defineProperty({}, _this4.getGroupTitleByKey(groupKey, sortAndGroup), searchResult[groupKey]));
       }, {});
@@ -40380,7 +40397,7 @@ function (_React$Component2) {
           });
         }
       }, "\u0424\u0456\u043B\u044C\u0442\u0440\u044B"), this.state.showFilters ? _react.default.createElement(FilterBox, this.state) : null, _react.default.createElement(SearchResult, {
-        foundItems: this.getSearchResult(this.state.filterAgeGroup, this.state.filterDisciplines, this.state.filterThemes, this.state.sortAndGroup || DEFAULT_SORT)
+        foundItems: this.getSearchResult(this.state.filterAgeGroup, this.state.filterDisciplines, this.state.filterThemes, this.state.filterCompetencies, this.state.sortAndGroup || DEFAULT_SORT)
       }));
     }
   }]);
@@ -40390,7 +40407,7 @@ function (_React$Component2) {
 
 var _default = ExerciseList;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","../shared-components/card.jsx":"js/shared-components/card.jsx","../services/ItemsDataProvider.js":"js/services/ItemsDataProvider.js","../utils.js":"js/utils.js","../../css/":"css/index.scss"}],"js/controllers/indexController.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","../shared-components/card.jsx":"js/shared-components/card.jsx","../services/ItemsDataProvider.js":"js/services/ItemsDataProvider.js","../utils.js":"js/utils.js"}],"js/controllers/indexController.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -40456,12 +40473,7 @@ function getIndexModel(exercises, disciplines) {
     }]
   };
 }
-},{"../services/ItemsDataProvider.js":"js/services/ItemsDataProvider.js"}],"css/react-slick-custom.scss":[function(require,module,exports) {
-var reloadCSS = require('_css_loader');
-
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"js/services/data/datastore.js":[function(require,module,exports) {
+},{"../services/ItemsDataProvider.js":"js/services/ItemsDataProvider.js"}],"js/services/data/datastore.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -40488,10 +40500,10 @@ function () {
     _classCallCheck(this, DataStore);
 
     this._useCms = useCms;
-    this._exerciseUrlLocal = '/exercises.json';
+    this._exerciseUrlLocal = 'http://nastaunik.info/mediatoolkit/exercises.json';
     this._exerciseUrlAzure = 'https://yurykgeneral.blob.core.windows.net/aspnet-blob/exercises.json';
     this._exerciseUrlCms = 'http://www.nastaunik.info/node.json?type=toolkit_item&page=0';
-    this._metadataUrl = '/exercises.json';
+    this._metadataUrl = 'http://nastaunik.info/mediatoolkit/exercises.json';
 
     this._convertFromCms = function (json) {
       return json.list.map(function (cmsExercise) {
@@ -40499,19 +40511,24 @@ function () {
           id: cmsExercise.nid,
           date: convertDate(cmsExercise.created),
           firstName: cmsExercise.field_author,
-          lastName: null,
-          discipline: null,
+          lastName: "",
           discipline_id: cmsExercise.field_discipline,
           ageRange: cmsExercise.field_age_group,
           title: cmsExercise.title,
-          requirements: "(TODO)",
+          competence: cmsExercise.field_competention,
+          requirements: cmsExercise.field_requirements,
           length: cmsExercise.field_length,
-          methods: [],
-          themes: [],
+          methods: cmsExercise.field_methods,
+          themes: cmsExercise.field_theme,
           summary: cmsExercise.body.summary,
           text: cmsExercise.body.value,
-          tips: null,
-          links: []
+          tips: cmsExercise.field_suggestion,
+          links: cmsExercise.field_links.map(function (link) {
+            name: link;
+
+            url: link;
+          }),
+          popular: cmsExercise.field_popular
         };
       });
     };
@@ -40554,12 +40571,12 @@ function () {
       });
     }
   }, {
-    key: "getCompetences",
-    value: function getCompetences() {
+    key: "getCompetencies",
+    value: function getCompetencies() {
       return fetch(this._metadataUrl).then(function (response) {
         return response.json();
       }).then(function (json) {
-        return json['all-comptences'];
+        return json['all-competencies'];
       });
     }
   }, {
@@ -40597,9 +40614,17 @@ var _reactRouterDom = require("react-router-dom");
 
 var _reactSlick = _interopRequireDefault(require("react-slick"));
 
+require("../css/normalize.css");
+
+require("../css/skeleton.css");
+
+require("../css/index.scss");
+
+require("../css/react-slick-custom.scss");
+
 var _spinner = _interopRequireDefault(require("./shared-components/spinner.jsx"));
 
-var _index = _interopRequireDefault(require("./screens/index.jsx"));
+var _index2 = _interopRequireDefault(require("./screens/index.jsx"));
 
 var _navbar = _interopRequireDefault(require("./shared-components/navbar.jsx"));
 
@@ -40609,10 +40634,6 @@ var _exerciseList = _interopRequireDefault(require("./screens/exerciseList.jsx")
 
 var _indexController = _interopRequireDefault(require("./controllers/indexController.js"));
 
-require("../css/index.scss");
-
-require("../css/react-slick-custom.scss");
-
 var _datastore = _interopRequireDefault(require("./services/data/datastore.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -40620,6 +40641,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
@@ -40742,29 +40765,38 @@ function (_React$Component3) {
         popular: [],
         disciplines: [],
         ageGroups: [],
-        mediaCompetences: []
+        competencies: []
       },
       isLoading: true,
       disciplines: null,
       ageGroups: null
-    }, _defineProperty(_this$state, "disciplines", null), _defineProperty(_this$state, "themes", null), _this$state);
+    }, _defineProperty(_this$state, "disciplines", null), _defineProperty(_this$state, "themes", null), _defineProperty(_this$state, "competencies", null), _this$state);
     var useCms = true;
     var dataStore = new _datastore.default(useCms);
-    Promise.all([dataStore.getExercises(), dataStore.getDisciplines(), dataStore.getThemes(), dataStore.getAgeGroups()]).then(function (_ref) {
-      var _ref2 = _slicedToArray(_ref, 4),
+    Promise.all([dataStore.getExercises(), dataStore.getDisciplines(), dataStore.getThemes(), dataStore.getAgeGroups(), dataStore.getCompetencies()]).then(function (_ref) {
+      var _ref2 = _slicedToArray(_ref, 5),
           exercises = _ref2[0],
           disciplines = _ref2[1],
           themes = _ref2[2],
-          ageGroups = _ref2[3];
+          ageGroups = _ref2[3],
+          competencies = _ref2[4];
 
       return setTimeout(function () {
+        exercises = exercises.map(function (e) {
+          return _objectSpread({}, e, {
+            discipline: disciplines.find(function (d) {
+              return d.key === e.discipline_id;
+            }).text
+          });
+        });
         self.setState({
           indexViewModel: (0, _indexController.default)(exercises, disciplines),
           isLoading: false,
           exercises: exercises,
           disciplines: disciplines,
           themes: themes,
-          ageGroups: ageGroups
+          ageGroups: ageGroups,
+          competencies: competencies
         });
       }, 1000);
     });
@@ -40786,7 +40818,7 @@ function (_React$Component3) {
         exact: true,
         path: "/",
         component: function component() {
-          return _react.default.createElement(_index.default, _this2.state.indexViewModel);
+          return _react.default.createElement(_index2.default, _this2.state.indexViewModel);
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
         path: "/exercise-list",
@@ -40795,7 +40827,8 @@ function (_React$Component3) {
             exercises: _this2.state.exercises,
             disciplines: _this2.state.disciplines,
             themes: _this2.state.themes,
-            ageGroups: _this2.state.ageGroups
+            ageGroups: _this2.state.ageGroups,
+            competencies: _this2.state.competencies
           }));
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
@@ -40806,7 +40839,8 @@ function (_React$Component3) {
               return item.id === props.match.params.id;
             })[0],
             themes: _this2.state.themes,
-            ageGroups: _this2.state.ageGroups
+            ageGroups: _this2.state.ageGroups,
+            competencies: _this2.state.competencies
           }));
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
@@ -40830,7 +40864,7 @@ function (_React$Component3) {
 }(_react.default.Component);
 
 _reactDom.default.render(_react.default.createElement(App, null), document.getElementById('app'));
-},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","react-router-dom":"node_modules/react-router-dom/es/index.js","react-slick":"node_modules/react-slick/lib/index.js","./shared-components/spinner.jsx":"js/shared-components/spinner.jsx","./screens/index.jsx":"js/screens/index.jsx","./shared-components/navbar.jsx":"js/shared-components/navbar.jsx","./screens/exercise.jsx":"js/screens/exercise.jsx","./screens/exerciseList.jsx":"js/screens/exerciseList.jsx","./controllers/indexController.js":"js/controllers/indexController.js","../css/index.scss":"css/index.scss","../css/react-slick-custom.scss":"css/react-slick-custom.scss","./services/data/datastore.js":"js/services/data/datastore.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","react-router-dom":"node_modules/react-router-dom/es/index.js","react-slick":"node_modules/react-slick/lib/index.js","../css/normalize.css":"css/normalize.css","../css/skeleton.css":"css/skeleton.css","../css/index.scss":"css/index.scss","../css/react-slick-custom.scss":"css/react-slick-custom.scss","./shared-components/spinner.jsx":"js/shared-components/spinner.jsx","./screens/index.jsx":"js/screens/index.jsx","./shared-components/navbar.jsx":"js/shared-components/navbar.jsx","./screens/exercise.jsx":"js/screens/exercise.jsx","./screens/exerciseList.jsx":"js/screens/exerciseList.jsx","./controllers/indexController.js":"js/controllers/indexController.js","./services/data/datastore.js":"js/services/data/datastore.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -40857,7 +40891,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54431" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62849" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

@@ -51,7 +51,7 @@ const Exercise = ({exercise, themes, ageGroups}) => (
                     <p>
                         {/* <img src={userpic} style={{width: "100%"}}></img> */}
                     </p>
-                    <p>{exercise.firstName + ' ' + exercise.lastName}</p>
+                    <p>{exercise.firstName + ' ' + exercise.lastName || ''}</p>
                     <div className="author-occupation">
                         
                     </div>

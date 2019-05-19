@@ -59,9 +59,13 @@ const FilterBox = (props) => (
             <FilterList items={props.ageGroups} selected={props.filterAgeGroup} handleChange={props.onAgeGroupFilterChange}>
             </FilterList>
         </div>
-        <div className="three columns">
+        {/* <div className="three columns">
             <label>Тэмы</label>
             <FilterList items={props.themes} selected={props.filterThemes} handleChange={props.onThemesFilterChange}></FilterList>
+        </div> */}
+        <div className="three columns">
+            <label>Кампетэнцыі</label>
+            <FilterList items={props.competencies} selected={props.filterCompetencies} handleChange={props.onCompetenciesFilterChange}></FilterList>
         </div>
         <div className="three columns">
             <label>Згрупаваць па</label>
@@ -99,6 +103,7 @@ class ExerciseList extends React.Component {
         this.state = {
             disciplines: props.disciplines,
             ageGroups: props.ageGroups,
+            competencies: props.competencies,
             themes: props.themes,
             allSortAndGroup: [
                 { "key": "newest", "text": "Новыя"},
@@ -111,6 +116,7 @@ class ExerciseList extends React.Component {
             filterAgeGroup: searchParams.get('ageGroup'),
             filterDisciplines: searchParams.get('discipline'),
             filterThemes: searchParams.get('theme'),
+            filterCompetencies: searchParams.get('competence'),
             sortAndGroup: DEFAULT_SORT,
             foundItems: {
                 "If you see this we probaly screwed": []
@@ -123,9 +129,13 @@ class ExerciseList extends React.Component {
                 props.history.push(`/exercise-list/?${this.getNewSearchUrl('discipline', newValue).toString()}`)
                 this.setState({filterDisciplines: newValue})
             },
-            onThemesFilterChange: (_, newValue) => {
-                props.history.push(`/exercise-list/?${this.getNewSearchUrl('theme', newValue).toString()}`);
-                this.setState({filterThemes: newValue})
+            // onThemesFilterChange: (_, newValue) => {
+            //     props.history.push(`/exercise-list/?${this.getNewSearchUrl('theme', newValue).toString()}`);
+            //     this.setState({filterThemes: newValue})
+            // },
+            onCompetenciesFilterChange: (_, newValue) => {
+                props.history.push(`/exercise-list/?${this.getNewSearchUrl('competence', newValue).toString()}`);
+                this.setState({filterCompetencies: newValue})
             },
             onSortAndGroupChange: (_, newValue) => {
                 this.setState({sortAndGroup: newValue})
@@ -145,12 +155,13 @@ class ExerciseList extends React.Component {
         return urlParams;
     }
 
-    getSearchResult(filterAgeGroup, filterDisciplines, filterThemes, sortAndGroup) {
+    getSearchResult(filterAgeGroup, filterDisciplines, filterThemes, filterCompetencies, sortAndGroup) {
         let searchResult = this.itemsDataProvider
             .newQuery()
             .applyFilter('ageGroup', filterAgeGroup)
             .applyFilter('discipline', filterDisciplines)
             .applyFilter('theme', filterThemes)
+            .applyFilter('competence', filterCompetencies)
             .applyGroupingAndSort(sortAndGroup)
             .executeQuery();
 
@@ -168,7 +179,7 @@ class ExerciseList extends React.Component {
         
         if (groupBy === 'by theme')
             return this.state.themes.find(i => i.key === key).text
-
+        
         if (groupBy === 'by age')
             return this.state.ageGroups.find(i => i.key === key).text
     }
@@ -187,6 +198,7 @@ class ExerciseList extends React.Component {
                         this.state.filterAgeGroup, 
                         this.state.filterDisciplines, 
                         this.state.filterThemes, 
+                        this.state.filterCompetencies,
                         this.state.sortAndGroup || DEFAULT_SORT)}>
                 </SearchResult>
             </div>);

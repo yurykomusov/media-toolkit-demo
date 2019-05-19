@@ -10,33 +10,34 @@ export default class DataStore {
     constructor(useCms) {
         this._useCms = useCms;
 
-        this._exerciseUrlLocal = '/exercises.json';
+        this._exerciseUrlLocal = 'http://nastaunik.info/mediatoolkit/exercises.json';
         this._exerciseUrlAzure = 'https://yurykgeneral.blob.core.windows.net/aspnet-blob/exercises.json';
         this._exerciseUrlCms = 'http://www.nastaunik.info/node.json?type=toolkit_item&page=0';        
-        this._metadataUrl = '/exercises.json';
+        this._metadataUrl = 'http://nastaunik.info/mediatoolkit/exercises.json';
        
         this._convertFromCms = (json) =>
             json.list.map((cmsExercise) => ({
                 id: cmsExercise.nid,        
                 date: convertDate(cmsExercise.created),        
                 firstName: cmsExercise.field_author,
-                lastName: null,        
-                discipline: null,        
+                lastName: "",        
                 discipline_id: cmsExercise.field_discipline,
                 ageRange: cmsExercise.field_age_group,        
-                title: cmsExercise.title,        
-                requirements: "(TODO)",        
+                title: cmsExercise.title,
+                competence: cmsExercise.field_competention, 
+                requirements: cmsExercise.field_requirements,        
                 length: cmsExercise.field_length,        
-                methods: [],
-                themes: [],
+                methods: cmsExercise.field_methods,
+                themes: cmsExercise.field_theme,
                 summary: cmsExercise.body.summary,
                 text: cmsExercise.body.value,
-                tips: null,
-                links: []
+                tips: cmsExercise.field_suggestion,
+                links: cmsExercise.field_links.map(link => {name: link; url: link}),
+                popular: cmsExercise.field_popular
             }));
 
         this._fetchExerciseFromCms = function() {
-            return fetch(this._exerciseUrlCms                )
+            return fetch(this._exerciseUrlCms)
                 .then(response => response.json())
                 .then(json => this._convertFromCms(json))
         };
@@ -63,10 +64,10 @@ export default class DataStore {
         
     }
 
-    getCompetences() {
+    getCompetencies() {
         return fetch(this._metadataUrl)
             .then((response) => response.json())
-            .then(json => json['all-comptences'])
+            .then(json => json['all-competencies'])
     }
 
     getAgeGroups() {

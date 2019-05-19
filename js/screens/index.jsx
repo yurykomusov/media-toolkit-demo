@@ -79,7 +79,15 @@ export default class Index extends React.Component {
     render() {        
         return (
             <div>
-                <h4>Папулярныя</h4>
+              <h4>Медыя кампетэнцыі</h4>
+                <div className="row">
+                    <Card className="three columns card-1" title="Доступ і надзейнасць крыніц" linkTo="/exercise-list/?competence=reliability"/>
+                    <Card className="three columns card-2" title="Аналіз медыя" linkTo="/exercise-list/?competence=analysis"/>
+                    <Card className="three columns card-3" title="Ацэнка медыя" linkTo="/exercise-list/?competence=assessment"/>
+                    <Card className="three columns card-4" title="Стварэнне і карыстанне медыя прасторай" linkTo="/exercise-list/?competence=creative"/>
+                </div>
+
+                {/* <h4>Папулярныя</h4>
                 <div className="row">
                     <Slider {...this.sliderSettings}>
                         {this.props.popular.map((i, index) => 
@@ -89,7 +97,7 @@ export default class Index extends React.Component {
                             description={i.summary} 
                             linkTo={`/exercise/${i.id}`}/>)}
                     </Slider>
-                </div> 
+                </div>  */}
                 
                 <h4>Новыя</h4>
                 <div className="row">
@@ -126,13 +134,6 @@ export default class Index extends React.Component {
                         linkTo={discipline.url}/>)}
             </Slider>
 
-            <h4>Медыя кампетэнцыі</h4>
-            <div className="row">
-                <Card className="three columns card-1" title="Доступ і надзейнасць крыніц"/>
-                <Card className="three columns card-2" title="Аналіз медыя"/>
-                <Card className="three columns card-3" title="Ацэнка медыя"/>
-                <Card className="three columns card-4" title="Стварэнне і карыстанне медыя прасторай"/>
-            </div>
         </div>);
     }
 }
